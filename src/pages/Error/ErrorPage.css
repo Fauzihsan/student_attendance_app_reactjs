@@ -1,0 +1,34 @@
+.mainErrorPage {
+  background-color: #454545;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+}
+
+.profilePictureErrorPage {
+  overflow: hidden;
+}
+
+.boxErrorPage {
+  border-radius: 50px;
+  background: #454545;
+  box-shadow: 20px 20px 60px #3b3b3b, -20px -20px 60px #4f4f4f;
+}
+
+.message {
+  color: #d66d6d;
+  text-shadow: 5px 5px 4px #454545;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .mainErrorPage {
+    height: 100vh;
+    padding: 0px 10px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .mainErrorPage {
+    height: 100vh;
+  }
+}
