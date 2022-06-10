@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLazyQuery } from "@apollo/client";
-import { GET_USER } from "../../api/Model/QueryModel";
+import { GET_USERS } from "../../api/Model/Query/GetUsers";
 import { AUTH } from "../../utils/helpers/AuthCookies";
-import { AiOutlineEyeInvisible, AiOutlineEye, AiOutlineMail, AiOutlineSecurityScan } from "react-icons/ai";
-// import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
+import { AiOutlineEyeInvisible, AiOutlineEye, AiOutlineUser, AiOutlineSecurityScan } from "react-icons/ai";
 import "./LoginPage.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function LoginPage() {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   const [togglePasswordIcon, setTogglePasswordIcon] = useState(false);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [getUser, { data, loading }] = useLazyQuery(GET_USER);
+  const [getUser, { data, loading }] = useLazyQuery(GET_USERS);
 
   let navigate = useNavigate();
 
-  const handleChangeEmail = (e) => {
-    setEmail(e.target.value);
+  const handleChangeUsername = (e) => {
+    setUsername(e.target.value);
   };
 
   const handleChangePassword = (e) => {
@@ -38,39 +43,79 @@ function LoginPage() {
   const handleLogin = (e) => {
     e.preventDefault();
     getUser({
-      variables: { email, password },
+      variables: { username, password },
     });
   };
 
   useEffect(() => {
     if (data?.users.length === 1) {
-      AUTH.setLogin(data?.users[0].email);
-      return navigate("/admin");
+      AUTH.setLogin(data?.users[0].username, data?.users[0].roles_id, data?.users[0].fullname);
+      if (AUTH.getRole() === "4") {
+        return navigate("/student");
+      } else if (AUTH.getRole() === "5") {
+        return navigate("/lecturer");
+      } else {
+        return navigate("/");
+      }
     }
   }, [data, navigate]);
 
   return (
     <div className="mainLogin flex lg:flex-row flex-col gap-x-10 gap-y-5 justify-center items-center">
       <img src={require("../../assets/img/ftLogo.png")} alt="Logo Fakultas Teknik UNSUR" className="left-0 lg:flex md:flex hidden opacity-50" />
-      <div className="box flex flex-col lg:p-10 p-3 lg:w-1/2 w-5/6 lg:h-3/4 h-1/2 justify-center items-center">
+      <div className="box flex flex-col lg:p-10 p-3 lg:w-1/2 w-5/6 h-3/4 justify-center items-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
         <h1 className="title text-center lg:text-3xl text-xl">
           Absensi Fakultas Teknik <br /> Universitas Suryakancana
         </h1>
         <div className="flex flex-col items-center justify-center lg:p-5 py-5 w-full">
-          <h1 className="title text-center lg:text-2xl text-xl">Sign In</h1>
           <form action="" onSubmit={handleLogin} className="w-full">
-            <div className="p-3 flex flex-row gap-x-2">
-              <AiOutlineMail className="text-2xl" />
-              <input type="email" value={email} onChange={handleChangeEmail} className="inputField w-full bg-transparent placeholder:text-white" required placeholder="Email" />
+            <div className="p-3 flex flex-row gap-x-2 items-center">
+              <AiOutlineUser className="text-2xl" size={30} />
+              <div className="relative z-0 w-full mb-6 group">
+                <input
+                  type="text"
+                  name="username"
+                  value={username}
+                  onChange={handleChangeUsername}
+                  className="inputField w-full outline-none bg-transparent placeholder:text-white block py-2.5 px-0 text-sm text-primary-blue border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  autoComplete="off"
+                  required
+                />
+                <label
+                  htmlFor="username"
+                  className="peer-focus:font-medium absolute text-sm text-primary-blue duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Username
+                </label>
+              </div>
             </div>
-            <div className="p-3 relative flex flex-row gap-x-2">
-              <AiOutlineSecurityScan className="text-2xl" />
-              <input type={showPassword === false ? "password" : "text"} value={password} onChange={handleChangePassword} className="inputField w-full bg-transparent placeholder:text-white " required placeholder="Password" />
-              <div className={togglePasswordIcon === true ? "text-2xl top-3 right-5 absolute" : "hidden"}>{showPassword === false ? <AiOutlineEye onClick={toggleShowPassword} /> : <AiOutlineEyeInvisible onClick={toggleShowPassword} />}</div>
+            <div className="p-3 relative flex flex-row gap-x-2 items-center">
+              <AiOutlineSecurityScan className="text-2xl" size={33} />
+
+              <div className="relative z-0 w-full mb-6 group">
+                <input
+                  type={showPassword === false ? "password" : "text"}
+                  name="password"
+                  value={password}
+                  onChange={handleChangePassword}
+                  className="inputField w-full outline-none bg-transparent placeholder:text-white block py-2.5 px-0 text-sm text-primary-blue border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                  placeholder=" "
+                  autoComplete="off"
+                  required
+                />
+                <label
+                  htmlFor="password"
+                  className="peer-focus:font-medium absolute text-sm text-primary-blue duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Password
+                </label>
+                <div className={togglePasswordIcon === true ? "text-2xl top-3 right-5 absolute" : "hidden"}>{showPassword === false ? <AiOutlineEye onClick={toggleShowPassword} /> : <AiOutlineEyeInvisible onClick={toggleShowPassword} />}</div>
+              </div>
             </div>
             <div className="text-center p-3">
-              <button type="submit" className="btn-login text-center px-10 py-2 relative">
-                {loading ? "Loading ... " : "Continue"}
+              <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-primary-blue rounded-lg group bg-gradient-to-br from-blue-500 to-primary-blue group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">{loading ? "Loading ... " : "Sign In"}</span>
               </button>
             </div>
             {data && <h2 className="text-center text-red-300 font-bold">Username or Password is Wrong!</h2>}

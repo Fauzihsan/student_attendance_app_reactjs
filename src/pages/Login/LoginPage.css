@@ -1,5 +1,5 @@
 .mainLogin {
-  background-color: #24507b;
+  background-color: #ffffff;
   height: 100vh;
   width: 100vw;
   position: fixed;
@@ -7,17 +7,17 @@
 
 .box {
   border-radius: 50px;
-  background: #24507b;
-  box-shadow: 20px 20px 50px #20486f, -20px -20px 50px #285887;
+  background: #ffffff;
+  box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
 }
 
 .title {
-  color: #fffafa;
-  text-shadow: 5px 5px 4px #454545;
+  color: #24507b;
+  /* text-shadow: 5px 5px 4px #1b262c; */
 }
 
 form {
-  color: #fffafa;
+  color: #24507b;
 }
 
 .inputField {
@@ -28,14 +28,14 @@ textarea:focus,
 input:focus {
   outline: none;
   border: none;
-  border-bottom: 2px solid #2071bd;
+  border-bottom: 2px solid #3282b8;
   transition: 1s ease all;
 }
 
 .btn-login {
   font-weight: 700;
   background: #24507b;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), -20px -20px 60px #285887;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px #285887;
   border-radius: 15px;
 }
 

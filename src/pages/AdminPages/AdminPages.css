@@ -1,0 +1,105 @@
+.main {
+  transition: 0.5s all ease;
+  width: 80%;
+  margin-left: 20%;
+}
+
+.navEdit {
+  color: white !important;
+  padding: 10px;
+  font-size: 2vw;
+}
+
+.sidebar {
+  position: fixed;
+  width: 20%;
+  height: 100%;
+  left: 0px;
+  top: 0;
+  transition: all 0.5s ease;
+  z-index: 8;
+}
+
+#check {
+  display: none;
+}
+
+label #btn,
+label #cancel {
+  position: fixed;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  z-index: 9;
+}
+
+label #btn {
+  z-index: 9;
+  left: -100px;
+  top: 10px;
+  transition: all 0.5s ease;
+}
+
+label #cancel {
+  z-index: 9;
+  left: 16%;
+  top: 10px;
+  margin: 5px 5px;
+}
+
+#check:checked ~ label #btn {
+  left: 20px;
+}
+#check:checked ~ label #cancel {
+  left: -195px;
+  position: absolute;
+}
+
+#check:checked ~ .sidebar {
+  left: -350px;
+  box-shadow: 3px 1px 10px black;
+}
+
+@media only screen and (min-width: 600px) {
+  #check:checked ~ .main {
+    width: 80%;
+    margin-left: 10%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .sidebar {
+    width: 53%;
+  }
+  .navEdit {
+    font-size: 3vw;
+  }
+  label #cancel {
+    left: 40%;
+    margin: 0px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 1024px) {
+  .main {
+    margin-left: 0;
+    width: 100%;
+  }
+  .sidebar {
+    left: -100%;
+    width: 75%;
+  }
+  label #btn {
+    left: 40px;
+  }
+  label #cancel {
+    left: -195px;
+  }
+  #check:checked ~ label #btn {
+    left: -100%;
+  }
+  #check:checked ~ label #cancel {
+    left: 60%;
+  }
+  #check:checked ~ .sidebar {
+    left: 0;
+  }
+}

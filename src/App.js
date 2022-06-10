@@ -1,86 +1,52 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/Login/LoginPage";
-import HomePage from "./pages/Home/HomePage";
 import ErrorPage from "./pages/Error/ErrorPage";
 import AdminRoute from "./routes/AdminRoute";
+import Dashboard from "./pages/AdminPages/Dashboard/Dashboard";
+import KelolaMahasiswa from "./pages/AdminPages/KelolaMahasiswa/KelolaMahasiswa";
+import KelolaDosen from "./pages/AdminPages/KelolaDosen/KelolaDosen";
+import Penjadwalan from "./pages/AdminPages/Penjadwalan/Penjadwalan";
+import KelolaKelas from "./pages/AdminPages/KelolaKelas/KelolaKelas";
+import HasSignInRoute from "./routes/HasSignInRoute";
+import KelolaMatkul from "./pages/AdminPages/KelolaMatkul/KelolaMatkul";
+import StudentRoute from "./routes/StudentRoute";
+import LihatAbsensi from "./pages/StudentPages/LihatAbsensi/LihatAbsensi";
+import Akun from "./pages/Akun/Akun";
+import LecturerRoute from "./routes/LecturerRoute";
+import Absensi from "./pages/LecturerPages/Absensi/Absensi";
+import HomeStudent from "./pages/StudentPages/Home/HomeStudent";
+import HomeLecturer from "./pages/LecturerPages/Home/HomeLecturer";
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route element={<AdminRoute />}>
-        <Route path="/admin" element={<HomePage />} />
+      <Route element={<HasSignInRoute />}>
+        <Route path="/" element={<LoginPage />} />
       </Route>
+
+      <Route element={<AdminRoute />}>
+        <Route path="/admin" element={<Dashboard />} />
+        <Route path="/admin/kelolaMahasiswa" element={<KelolaMahasiswa />} />
+        <Route path="/admin/kelolaDosen" element={<KelolaDosen />} />
+        <Route path="/admin/kelolaKelas" element={<KelolaKelas />} />
+        <Route path="/admin/kelolaMatkul" element={<KelolaMatkul />} />
+        <Route path="/admin/penjadwalan" element={<Penjadwalan />} />
+      </Route>
+
+      <Route element={<StudentRoute />}>
+        <Route path="/student" element={<HomeStudent />} />
+        <Route path="/student/lihatAbsensi" element={<LihatAbsensi />} />
+      </Route>
+
+      <Route element={<LecturerRoute />}>
+        <Route path="/lecturer" element={<HomeLecturer />} />
+        <Route path="/lecturer/absensi" element={<Absensi />} />
+      </Route>
+
+      <Route path="/akun" element={<Akun />} />
+
       <Route path="*" element={<ErrorPage code="404" title="Ooopss Page Not Found" />} />
     </Routes>
   );
 }
-
-// import React, { useState } from "react";
-// import "./App.css";
-// import * as XLSX from "xlsx";
-
-// function App() {
-//   const [items, setItems] = useState([]);
-
-//   const readExcel = (file) => {
-//     const promise = new Promise((resolve, reject) => {
-//       const fileReader = new FileReader();
-//       fileReader.readAsArrayBuffer(file);
-
-//       fileReader.onload = (e) => {
-//         const bufferArray = e.target.result;
-
-//         const wb = XLSX.read(bufferArray, { type: "buffer" });
-
-//         const wsname = wb.SheetNames[0];
-
-//         const ws = wb.Sheets[wsname];
-
-//         const data = XLSX.utils.sheet_to_json(ws);
-
-//         resolve(data);
-//       };
-
-//       fileReader.onerror = (error) => {
-//         reject(error);
-//       };
-//     });
-
-//     promise.then((d) => {
-//       setItems(d);
-//     });
-//   };
-
-//   return (
-//     <div>
-//       <input
-//         type="file"
-//         onChange={(e) => {
-//           const file = e.target.files[0];
-//           readExcel(file);
-//         }}
-//       />
-
-//       <table class="table container">
-//         <thead>
-//           <tr>
-//             <th scope="col">Item</th>
-//             <th scope="col">Description</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {items.map((d) => (
-//             <tr key={d.Item}>
-//               <th>{d.Item}</th>
-//               <td>{d.Description}</td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// }
-
-// export default App;
