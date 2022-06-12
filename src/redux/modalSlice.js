@@ -5,21 +5,13 @@ export const modalSlice = createSlice({
   initialState: {
     add: false,
     import: false,
-    update: false,
-    delete: false,
   },
   reducers: {
-    MODAL_ADD: (state, data) => {
-      state.add = data;
+    MODAL_ADD: (state, action) => {
+      state.add = action.payload;
     },
     MODAL_IMPORT: (state, action) => {
       state.import = action.payload;
-    },
-    MODAL_UPDATE: (state, action) => {
-      state.update = action.payload;
-    },
-    MODAL_DELETE: (state, action) => {
-      state.delete = action.payload;
     },
   },
 });

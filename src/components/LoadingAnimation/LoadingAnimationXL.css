@@ -1,12 +1,17 @@
-.containerLoading {
+.containerLoadingXL {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  position: relative;
 }
-.bar {
-  width: 5px;
-  height: 10px;
+.middle {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+.barXL {
+  width: 10px;
+  height: 70px;
   background: #fff;
   display: inline-block;
   transform-origin: bottom center;

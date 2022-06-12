@@ -7,10 +7,13 @@ import { AUTH } from "../../utils/helpers/AuthCookies";
 import { useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
 import ImportModal from "./ImportModal";
+import { useSelector, useDispatch } from "react-redux";
+import { MODAL_ADD } from "../../redux/modalSlice";
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 function InsertModal() {
-  const [showAddModal, setShowAddModal] = useState(false);
-
+  const modalAdd = useSelector((state) => state.modal.add);
+  const dispatch = useDispatch();
   const INITIAL_STATE = {
     npm: "",
     fullname: "",
@@ -28,11 +31,11 @@ function InsertModal() {
         icon: "success",
         title: "Data Mahasiswa Berhasil Dimasukan",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1200,
       });
 
       setStudent(INITIAL_STATE);
-      setShowAddModal(false);
+      dispatch(MODAL_ADD(false));
     },
   });
 
@@ -47,7 +50,8 @@ function InsertModal() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleInputStudent = () => {
+  const handleInputStudent = (e) => {
+    e.preventDefault();
     InsertUser({
       variables: {
         user: {
@@ -74,14 +78,14 @@ function InsertModal() {
       <button
         type="button"
         onClick={() => {
-          setShowAddModal(true);
+          dispatch(MODAL_ADD(true));
         }}
         className="text-white bg-gradient-to-r from-primary-blue via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2"
         data-modal-toggle="large-modal"
       >
         Tambah
       </button>
-      {showAddModal && (
+      {modalAdd && (
         <div id="modalAdd" tabIndex="-1" className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
           <div className="relative p-4 mx-auto w-full max-w-xl h-full md:h-auto">
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -89,7 +93,7 @@ function InsertModal() {
                 <h3 className="text-xl font-medium text-gray-900 dark:text-white">Tambah Data Mahasiswa Baru</h3>
                 <button
                   onClick={() => {
-                    setShowAddModal(false);
+                    dispatch(MODAL_ADD(false));
                   }}
                   type="button"
                   className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -143,7 +147,7 @@ function InsertModal() {
                   </div>
                   <div className="flex items-center justify-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
                     <button type="submit" className="text-white bg-gradient-to-r from-primary-blue via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">
-                      {loadingInsert ? "Tunggu ..." : "Submit"}
+                      {loadingInsert ? <LoadingAnimation /> : "Submit"}
                     </button>
                     <ImportModal prodi={student.study_programs_id} />
                   </div>

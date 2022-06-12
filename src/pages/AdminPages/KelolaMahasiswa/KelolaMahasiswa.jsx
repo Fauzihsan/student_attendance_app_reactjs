@@ -7,7 +7,6 @@ import InsertModal from "../../../components/ModalInsert/InsertModal";
 import FilterStudents from "../../../components/FilterStudents/FilterStudents";
 import SearchBar from "../../../components/SearchBar/SearchBar";
 import StudentTable from "../../../components/Tables/StudentTable/StudentTable";
-import { useSelector } from "react-redux";
 
 function KelolaMahasiswa() {
   const INITIAL_STATE = {
@@ -32,9 +31,6 @@ function KelolaMahasiswa() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const modalAdd = useSelector((state) => state.modal.add);
-  console.log(modalAdd);
   return (
     <>
       <Sidebar />

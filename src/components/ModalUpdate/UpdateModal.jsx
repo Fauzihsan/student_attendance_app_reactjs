@@ -5,6 +5,7 @@ import { BsPencilSquare } from "react-icons/bs";
 import { FaRegWindowClose } from "react-icons/fa";
 import { UPDATE_STUDENT } from "../../api/Model/Mutation/Update/UpdateUser";
 import Swal from "sweetalert2";
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 function UpdateModal({ student }) {
   const { npm, fullname, is_active } = student;
@@ -25,7 +26,7 @@ function UpdateModal({ student }) {
         icon: "success",
         title: "Data Mahasiswa berhasil terupdate",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1200,
       });
 
       setShowModal(false);
@@ -62,7 +63,7 @@ function UpdateModal({ student }) {
           icon: "error",
           title: "Tidak Ada Perubahan",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1200,
         });
       }
     }
@@ -140,7 +141,7 @@ function UpdateModal({ student }) {
                   type="button"
                   className="text-white bg-gradient-to-r from-primary-blue via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2"
                 >
-                  {loading ? "Tunggu ..." : "Update"}
+                  {loading ? <LoadingAnimation /> : "Update"}
                 </button>
               </div>
             </div>

@@ -7,11 +7,12 @@ import { FaRegWindowClose } from "react-icons/fa";
 import { IMPORT_USERS } from "../../api/Model/Mutation/Insert/ImportUsers";
 import { IMPORT_STUDENTS } from "../../api/Model/Mutation/Insert/ImportStudents";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
+import { useSelector, useDispatch } from "react-redux";
+import { MODAL_ADD, MODAL_IMPORT } from "../../redux/modalSlice";
 
 function ImportModal({ prodi }) {
-  const [showModal, setShowModal] = useState({
-    modalImport: false,
-  });
+  const modalImport = useSelector((state) => state.modal.import);
+  const dispatch = useDispatch();
   const [students, setStudents] = useState([]);
   const [users, setUsers] = useState([]);
   const [importUsers] = useMutation(IMPORT_USERS);
@@ -22,11 +23,12 @@ function ImportModal({ prodi }) {
         icon: "success",
         title: "Data Mahasiswa Berhasil Dimasukan",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1200,
       });
 
-      setShowModal({ ...showModal, modalImport: false });
+      dispatch(MODAL_ADD(false));
       setStudents([]);
+      setUsers([]);
     },
   });
 
@@ -63,25 +65,35 @@ function ImportModal({ prodi }) {
   };
 
   const handleImport = () => {
-    importStudents({
-      variables: {
-        students: students,
-      },
-    });
+    if (students.length === 0) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Tidak Ada Data",
+        showConfirmButton: false,
+        timer: 1200,
+      });
+    } else {
+      importStudents({
+        variables: {
+          students: students,
+        },
+      });
 
-    importUsers({
-      variables: {
-        users: users,
-      },
-    });
+      importUsers({
+        variables: {
+          users: users,
+        },
+      });
+    }
   };
 
-  if (loadingImport) return <LoadingAnimation />;
   return (
     <>
       <button
         onClick={() => {
-          setShowModal({ ...showModal, modalAdd: false, modalImport: true });
+          // setShowModal({ ...showModal, modalAdd: false, modalImport: true });
+          dispatch(MODAL_IMPORT(true));
         }}
         data-modal-toggle="large-modal"
         type="button"
@@ -89,7 +101,7 @@ function ImportModal({ prodi }) {
       >
         Import Data
       </button>
-      {showModal.modalImport && (
+      {modalImport && (
         <div id="modalImport" tabIndex="-1" className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
           <div className="relative p-4 mx-auto w-full max-w-4xl h-full md:h-auto">
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -97,7 +109,7 @@ function ImportModal({ prodi }) {
                 <h3 className="text-xl font-medium text-gray-900 dark:text-white">Tambah Data Mahasiswa Baru</h3>
                 <button
                   onClick={() => {
-                    setShowModal({ ...showModal, modalImport: false });
+                    dispatch(MODAL_IMPORT(false));
                   }}
                   type="button"
                   className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -156,7 +168,7 @@ function ImportModal({ prodi }) {
                   type="button"
                   className="text-white bg-gradient-to-r from-primary-blue via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                 >
-                  Submit
+                  {loadingImport ? <LoadingAnimation /> : "Submit"}
                 </button>
               </div>
             </div>

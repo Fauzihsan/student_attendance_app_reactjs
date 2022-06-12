@@ -8,7 +8,7 @@ import { GET_STUDENTS_NONAKTIF } from "../../../api/Model/Subscription/GetStuden
 import UpdateModal from "../../ModalUpdate/UpdateModal";
 import { useSelector } from "react-redux";
 
-import LoadingAnimation from "../../../components/LoadingAnimation/LoadingAnimation";
+import LoadingAnimationXL from "../../LoadingAnimation/LoadingAnimationXL";
 import DeleteModal from "../../ModalDelete/DeleteModal";
 
 function StudentTable({ student }) {
@@ -19,6 +19,7 @@ function StudentTable({ student }) {
   const { data: dataSearch, loading: fetchSearch } = useSubscription(GET_STUDENTS_SEARCH, {
     variables: {
       npm: search,
+      prodi: student,
     },
   });
 
@@ -61,8 +62,8 @@ function StudentTable({ student }) {
         <tbody>
           {fetchStudents || fetchSearch ? (
             <tr>
-              <td colSpan={6}>
-                <LoadingAnimation />
+              <td colSpan={6} rowSpan={6}>
+                <LoadingAnimationXL />
               </td>
             </tr>
           ) : search === "" ? (
