@@ -2,16 +2,25 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { INSERT_STUDENT } from "../../api/Model/Mutation/Insert/InsertStudent";
 import { INSERT_USER } from "../../api/Model/Mutation/Insert/InsertUser";
-import { GET_STUDENTS } from "../../api/Model/Subscription/GetStudents";
 import { FaRegWindowClose } from "react-icons/fa";
 import { AUTH } from "../../utils/helpers/AuthCookies";
 import { useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
-import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 import ImportModal from "./ImportModal";
+import { useSelector, useDispatch } from "react-redux";
+import { MODAL_ADD } from "../../redux/modalSlice";
+import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 function InsertModal() {
-  const [showAddModal, setShowAddModal] = useState(false);
+  const modalAdd = useSelector((state) => state.modal.add);
+  const dispatch = useDispatch();
+  const INITIAL_STATE = {
+    npm: "",
+    fullname: "",
+    study_programs_id: "",
+  };
+
+  const [student, setStudent] = useState(INITIAL_STATE);
 
   const [InsertUser] = useMutation(INSERT_USER);
 
@@ -22,25 +31,27 @@ function InsertModal() {
         icon: "success",
         title: "Data Mahasiswa Berhasil Dimasukan",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1200,
       });
 
-      setShowAddModal(false);
       setStudent(INITIAL_STATE);
+      dispatch(MODAL_ADD(false));
     },
-    refetchQueries: [GET_STUDENTS],
   });
 
-  const handleInputStudent = () => {
-    insertStudent({
-      variables: {
-        student: {
-          npm: student.npm,
-          fullname: student.fullname,
-          study_programs_id: student.study_programs_id,
-        },
-      },
-    });
+  useEffect(() => {
+    if (AUTH.getRole() === "1") {
+      setStudent({ ...student, study_programs_id: "55201" });
+    } else if (AUTH.getRole() === "2") {
+      setStudent({ ...student, study_programs_id: "22201" });
+    } else if (AUTH.getRole() === "3") {
+      setStudent({ ...student, study_programs_id: "26201" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleInputStudent = (e) => {
+    e.preventDefault();
     InsertUser({
       variables: {
         user: {
@@ -52,23 +63,29 @@ function InsertModal() {
         },
       },
     });
+    insertStudent({
+      variables: {
+        student: {
+          npm: student.npm,
+          fullname: student.fullname,
+          study_programs_id: student.study_programs_id,
+        },
+      },
+    });
   };
-
-  if (loadingInsert) return <LoadingAnimation />;
-
   return (
     <>
       <button
         type="button"
         onClick={() => {
-          setShowAddModal(true);
+          dispatch(MODAL_ADD(true));
         }}
         className="text-white bg-gradient-to-r from-primary-blue via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2"
         data-modal-toggle="large-modal"
       >
         Tambah
       </button>
-      {showAddModal && (
+      {modalAdd && (
         <div id="modalAdd" tabIndex="-1" className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
           <div className="relative p-4 mx-auto w-full max-w-xl h-full md:h-auto">
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -76,7 +93,7 @@ function InsertModal() {
                 <h3 className="text-xl font-medium text-gray-900 dark:text-white">Tambah Data Mahasiswa Baru</h3>
                 <button
                   onClick={() => {
-                    setShowAddModal(false);
+                    dispatch(MODAL_ADD(false));
                   }}
                   type="button"
                   className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -130,7 +147,7 @@ function InsertModal() {
                   </div>
                   <div className="flex items-center justify-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
                     <button type="submit" className="text-white bg-gradient-to-r from-primary-blue via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">
-                      Submit
+                      {loadingInsert ? <LoadingAnimation /> : "Submit"}
                     </button>
                     <ImportModal prodi={student.study_programs_id} />
                   </div>

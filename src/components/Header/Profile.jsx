@@ -1,13 +1,14 @@
 import React from "react";
-import { AUTH } from "../../utils/helpers/AuthCookies";
-import { FaUserCircle } from "react-icons/fa";
-import { Dropdown } from "flowbite-react";
-import { GET_ONE_USER } from "../../api/Model/Query/GetOneUser";
-import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
-
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+
+import { FaUserCircle } from "react-icons/fa";
+import { useQuery } from "@apollo/client";
+import { Dropdown } from "flowbite-react";
+import Swal from "sweetalert2";
+
+import { AUTH } from "../../utils/helpers/AuthCookies";
+import { GET_ONE_USER } from "../../api/Model/Query/GetOneUser";
 
 function Profile() {
   const { data } = useQuery(GET_ONE_USER, { variables: { username: AUTH.getAuth() } });

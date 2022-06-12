@@ -6,16 +6,20 @@ import { GET_STUDENTS_SEARCH } from "../../../api/Model/Subscription/GetSearchSt
 import { GET_STUDENTS_AKTIF } from "../../../api/Model/Subscription/GetStudentsAktif";
 import { GET_STUDENTS_NONAKTIF } from "../../../api/Model/Subscription/GetStudentsNonAktif";
 import UpdateModal from "../../ModalUpdate/UpdateModal";
+import { useSelector } from "react-redux";
 
-import LoadingAnimation from "../../../components/LoadingAnimation/LoadingAnimation";
+import LoadingAnimationXL from "../../LoadingAnimation/LoadingAnimationXL";
 import DeleteModal from "../../ModalDelete/DeleteModal";
 
-function StudentTable({ filter, search, student }) {
+function StudentTable({ student }) {
+  const filter = useSelector((state) => state.filter.value);
+  const search = useSelector((state) => state.search.value);
   const [get, setGet] = useState(GET_STUDENTS);
   const { data: dataStudents, loading: fetchStudents } = useSubscription(get, { variables: { prodi: student } });
   const { data: dataSearch, loading: fetchSearch } = useSubscription(GET_STUDENTS_SEARCH, {
     variables: {
       npm: search,
+      prodi: student,
     },
   });
 
@@ -58,8 +62,8 @@ function StudentTable({ filter, search, student }) {
         <tbody>
           {fetchStudents || fetchSearch ? (
             <tr>
-              <td colSpan={6}>
-                <LoadingAnimation />
+              <td colSpan={6} rowSpan={6}>
+                <LoadingAnimationXL />
               </td>
             </tr>
           ) : search === "" ? (
