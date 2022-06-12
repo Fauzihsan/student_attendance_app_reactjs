@@ -110,6 +110,8 @@ function ImportModal({ prodi }) {
                 <button
                   onClick={() => {
                     dispatch(MODAL_IMPORT(false));
+                    setStudents([]);
+                    setUsers([]);
                   }}
                   type="button"
                   className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
