@@ -47,16 +47,19 @@ function LoginPage() {
     });
   };
 
+  const [failed, setFailed] = useState(false);
   useEffect(() => {
     if (data?.users.length === 1) {
       AUTH.setLogin(data?.users[0].username, data?.users[0].roles_id, data?.users[0].fullname);
-      if (AUTH.getRole() === "4") {
+      if (data?.users[0].roles_id === 4) {
         return navigate("/student");
-      } else if (AUTH.getRole() === "5") {
+      } else if (data?.users[0].roles_id === 5) {
         return navigate("/lecturer");
       } else {
-        return navigate("/");
+        return navigate("/admin");
       }
+    } else if (data?.users.length === 0) {
+      setFailed(true);
     }
   }, [data, navigate]);
 
@@ -118,7 +121,7 @@ function LoginPage() {
                 <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">{loading ? "Loading ... " : "Sign In"}</span>
               </button>
             </div>
-            {data && <h2 className="text-center text-red-300 font-bold">Username or Password is Wrong!</h2>}
+            {failed && <h2 className="text-center text-red-300 font-bold">Username or Password is Wrong!</h2>}
           </form>
         </div>
       </div>

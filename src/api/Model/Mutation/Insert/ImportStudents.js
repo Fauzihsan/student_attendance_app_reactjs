@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const INSERT_STUDENTS = gql`
-  mutation InsertStudents($students: [students_insert_input!]!) {
+export const IMPORT_STUDENTS = gql`
+  mutation ImportStudents($students: [students_insert_input!]!) {
     insert_students(objects: $students) {
       returning {
         npm
