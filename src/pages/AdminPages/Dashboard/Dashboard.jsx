@@ -1,5 +1,5 @@
-import Sidebar from "../../../components/Sidebar";
-import Header from "../../../components/Header";
+import Sidebar from "../../../components/Sidebar/Sidebar";
+import Header from "../../../components/Header/Header";
 import { AUTH } from "../../../utils/helpers/AuthCookies";
 import "../../../assets/css/style.css";
 

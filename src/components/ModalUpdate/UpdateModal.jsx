@@ -3,8 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { BsPencilSquare } from "react-icons/bs";
 import { FaRegWindowClose } from "react-icons/fa";
-import { UPDATE_STUDENT } from "../api/Model/Mutation/Update/UpdateUser";
-import { GET_STUDENTS } from "../api/Model/Subscription/GetStudents";
+import { UPDATE_STUDENT } from "../../api/Model/Mutation/Update/UpdateUser";
+import { GET_STUDENTS } from "../../api/Model/Subscription/GetStudents";
 import Swal from "sweetalert2";
 
 function UpdateModal({ student }) {

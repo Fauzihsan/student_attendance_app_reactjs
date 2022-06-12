@@ -1,7 +1,7 @@
 import React from "react";
 import { FaBars, FaRegWindowClose } from "react-icons/fa";
-import "../pages/AdminPages/AdminPages.css";
-import ListMenu from "./ListMenu";
+import "../../pages/AdminPages/AdminPages.css";
+import ListMenu from "../Menu/ListMenu";
 
 function Sidebar() {
   return (
@@ -14,7 +14,7 @@ function Sidebar() {
 
       <div className="sidebar bg-primary-white dark:bg-primary-grey py-3">
         <a href="https://ft.unsur.ac.id" target="__blank" className="flex items-center pl-2.5 mb-5 pt-10 py-2 border-b-2">
-          <img src={require("../assets/img/ftLogo.png")} className="h-6 mr-3 sm:h-7" alt="FT Logo" />
+          <img src={require("../../assets/img/ftLogo.png")} className="h-6 mr-3 sm:h-7" alt="FT Logo" />
           <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Absensi FTUNSUR</span>
         </a>
 

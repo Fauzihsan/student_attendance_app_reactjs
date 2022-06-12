@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_STUDENTS_AKTIF = gql`
-  subscription GetStudents {
-    students(where: { is_active: { _eq: true } }, order_by: { npm: asc }) {
+  subscription GetStudents($prodi: String!) {
+    students(where: { is_active: { _eq: true }, _and: { study_programs_id: { _eq: $prodi } } }, order_by: { npm: asc }) {
       npm
       fullname
       study_program {
