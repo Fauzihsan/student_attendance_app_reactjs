@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { GET_STUDENTS } from "../../api/Model/Subscription/GetStudents";
 import { DELETE_STUDENT } from "../../api/Model/Mutation/Delete/DeleteStudent";
 import { DELETE_USER } from "../../api/Model/Mutation/Delete/DeleteUser";
 import { AiOutlineDelete } from "react-icons/ai";
@@ -25,7 +24,6 @@ function DeleteModal({ student }) {
       setShowModal({ ...showModal, modalDelete: false });
       setStudentDelete("");
     },
-    refetchQueries: [GET_STUDENTS],
   });
 
   const [deleteUser] = useMutation(DELETE_USER);

@@ -4,7 +4,6 @@ import * as XLSX from "xlsx";
 import { useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
 import { FaRegWindowClose } from "react-icons/fa";
-import { GET_STUDENTS } from "../../api/Model/Subscription/GetStudents";
 import { IMPORT_USERS } from "../../api/Model/Mutation/Insert/ImportUsers";
 import { IMPORT_STUDENTS } from "../../api/Model/Mutation/Insert/ImportStudents";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
@@ -29,7 +28,6 @@ function ImportModal({ prodi }) {
       setShowModal({ ...showModal, modalImport: false });
       setStudents([]);
     },
-    refetchQueries: [GET_STUDENTS],
   });
 
   const readExcel = (file) => {
