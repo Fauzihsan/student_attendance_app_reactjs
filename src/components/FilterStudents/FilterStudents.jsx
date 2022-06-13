@@ -6,8 +6,8 @@ function FilterStudents() {
   const dispatch = useDispatch();
 
   return (
-    <div className="w-1/2 flex flex-row items-center gap-x-2">
-      <label htmlFor="" className="text-sm">
+    <div className="lg:w-1/2 w-full px-3 py-2 flex flex-row items-center gap-x-2">
+      <label htmlFor="" className="text-primary-grey dark:text-white text-sm">
         Filter
       </label>
       <select
