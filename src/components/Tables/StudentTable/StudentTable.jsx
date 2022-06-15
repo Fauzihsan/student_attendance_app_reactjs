@@ -15,16 +15,17 @@ import DeleteModal from "../../ModalDelete/DeleteModal";
 import UpdateModal from "../../ModalUpdate/UpdateModal";
 import LoadingAnimation from "../../LoadingAnimation/LoadingAnimation";
 
-function StudentTable({ student }) {
+function StudentTable() {
+  const id_prodi = useSelector((state) => state.prodi.id);
   const filter = useSelector((state) => state.filter.value);
   const search = useSelector((state) => state.search.value);
 
   const [filterCategory, setFilterCategory] = useState(GET_STUDENTS);
-  const { data: dataStudents, loading: fetchStudents } = useSubscription(filterCategory, { variables: { prodi: student } });
+  const { data: dataStudents, loading: fetchStudents } = useSubscription(filterCategory, { variables: { prodi: id_prodi } });
   const { data: dataSearch, loading: fetchSearch } = useSubscription(GET_STUDENTS_SEARCH, {
     variables: {
       npm: search,
-      prodi: student,
+      prodi: id_prodi,
     },
   });
 

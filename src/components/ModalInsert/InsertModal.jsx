@@ -1,9 +1,8 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { INSERT_STUDENT } from "../../api/Model/Mutation/Insert/InsertStudent";
 import { INSERT_USER } from "../../api/Model/Mutation/Insert/InsertUser";
 import { FaRegWindowClose } from "react-icons/fa";
-import { AUTH } from "../../utils/helpers/AuthCookies";
 import { useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
 import ImportModal from "./ImportModal";
@@ -12,12 +11,12 @@ import { MODAL_ADD } from "../../redux/modalSlice";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 
 function InsertModal() {
+  const id_prodi = useSelector((state) => state.prodi.id);
   const modalAdd = useSelector((state) => state.modal.add);
   const dispatch = useDispatch();
   const INITIAL_STATE = {
     npm: "",
     fullname: "",
-    study_programs_id: "",
   };
 
   const [student, setStudent] = useState(INITIAL_STATE);
@@ -39,17 +38,6 @@ function InsertModal() {
     },
   });
 
-  useEffect(() => {
-    if (AUTH.getRole() === "1") {
-      setStudent({ ...student, study_programs_id: "55201" });
-    } else if (AUTH.getRole() === "2") {
-      setStudent({ ...student, study_programs_id: "22201" });
-    } else if (AUTH.getRole() === "3") {
-      setStudent({ ...student, study_programs_id: "26201" });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const handleInputStudent = (e) => {
     e.preventDefault();
     InsertUser({
@@ -59,7 +47,7 @@ function InsertModal() {
           username: student.npm,
           password: student.npm,
           roles_id: 4,
-          study_programs_id: student.study_programs_id,
+          study_programs_id: id_prodi,
         },
       },
     });
@@ -68,11 +56,12 @@ function InsertModal() {
         student: {
           npm: student.npm,
           fullname: student.fullname,
-          study_programs_id: student.study_programs_id,
+          study_programs_id: id_prodi,
         },
       },
     });
   };
+
   return (
     <>
       <button
@@ -149,7 +138,7 @@ function InsertModal() {
                     <button type="submit" className="text-white bg-gradient-to-r from-primary-blue via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">
                       {loadingInsert ? <LoadingAnimation /> : "Submit"}
                     </button>
-                    <ImportModal prodi={student.study_programs_id} />
+                    <ImportModal />
                   </div>
                 </form>
               </div>

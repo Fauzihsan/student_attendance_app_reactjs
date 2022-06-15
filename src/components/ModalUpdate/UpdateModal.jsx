@@ -45,9 +45,18 @@ function UpdateModal({ student }) {
   };
 
   const [error, setError] = useState("");
-  const handleUpdate = () => {
+  const handleUpdate = (e) => {
+    e.preventDefault();
     if (studentUpdate.fullname === "") {
       setError("Nama Mahasiswa Tidak Boleh Kosong");
+    } else if (studentUpdate.fullname === fullname && studentUpdate.is_active === is_active) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Tidak Ada Perubahan",
+        showConfirmButton: false,
+        timer: 1200,
+      });
     } else {
       if (isUpdated) {
         updateStudent({
@@ -75,6 +84,7 @@ function UpdateModal({ student }) {
         className="bg-secondary-blue text-white hover:bg-primary-blue p-2 rounded-md"
         onClick={() => {
           setShowModal(true);
+          setError("");
         }}
       >
         <BsPencilSquare size={25} />
@@ -99,7 +109,7 @@ function UpdateModal({ student }) {
               </div>
 
               <div className="p-6 space-y-6">
-                <form>
+                <form onSubmit={handleUpdate}>
                   <div className="relative z-0 w-full mb-6 group">
                     <input
                       type="text"
@@ -133,16 +143,12 @@ function UpdateModal({ student }) {
                       <option value={!is_active}>{!is_active === true ? "Aktifkan" : "Tidak Aktifkan"}</option>
                     </select>
                   </div>
+                  <div className="flex items-center justify-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+                    <button type="submit" className="text-white bg-gradient-to-r from-primary-blue via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2">
+                      {loading ? <LoadingAnimation /> : "Update"}
+                    </button>
+                  </div>
                 </form>
-              </div>
-              <div className="flex items-center justify-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                <button
-                  onClick={handleUpdate}
-                  type="button"
-                  className="text-white bg-gradient-to-r from-primary-blue via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2"
-                >
-                  {loading ? <LoadingAnimation /> : "Update"}
-                </button>
               </div>
             </div>
           </div>

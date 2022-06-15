@@ -10,7 +10,8 @@ import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
 import { useSelector, useDispatch } from "react-redux";
 import { MODAL_ADD, MODAL_IMPORT } from "../../redux/modalSlice";
 
-function ImportModal({ prodi }) {
+function ImportModal() {
+  const id_prodi = useSelector((state) => state.prodi.id);
   const modalImport = useSelector((state) => state.modal.import);
   const dispatch = useDispatch();
   const [students, setStudents] = useState([]);
@@ -27,6 +28,7 @@ function ImportModal({ prodi }) {
       });
 
       dispatch(MODAL_ADD(false));
+      dispatch(MODAL_IMPORT(false));
       setStudents([]);
       setUsers([]);
     },
@@ -58,8 +60,8 @@ function ImportModal({ prodi }) {
 
     promise.then((d) => {
       d.forEach((data) => {
-        setStudents((students) => [...students, { npm: data.npm.toString(), fullname: data.fullname, study_programs_id: prodi }]);
-        setUsers((users) => [...users, { fullname: data.fullname, username: data.npm.toString(), password: data.npm.toString(), study_programs_id: prodi, roles_id: 4 }]);
+        setStudents((students) => [...students, { npm: data.npm.toString(), fullname: data.fullname, study_programs_id: id_prodi }]);
+        setUsers((users) => [...users, { fullname: data.fullname, username: data.npm.toString(), password: data.npm.toString(), study_programs_id: id_prodi, roles_id: 4 }]);
       });
     });
   };
@@ -164,7 +166,7 @@ function ImportModal({ prodi }) {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
+              <div className="flex items-center justify-center space-x-2 rounded-b">
                 <button
                   onClick={handleImport}
                   type="button"

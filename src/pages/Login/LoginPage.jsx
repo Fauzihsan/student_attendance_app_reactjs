@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLazyQuery } from "@apollo/client";
 import { GET_USERS } from "../../api/Model/Query/GetUsers";
 import { AUTH } from "../../utils/helpers/AuthCookies";
+import { ID_PRODI, NAME_PRODI } from "../../redux/prodiSlice";
 import { AiOutlineEyeInvisible, AiOutlineEye, AiOutlineUser, AiOutlineSecurityScan } from "react-icons/ai";
 import "./LoginPage.css";
 import AOS from "aos";
@@ -10,6 +12,21 @@ import "aos/dist/aos.css";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 
 function LoginPage() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    return function cleanup() {
+      if (AUTH.getRole() === "1") {
+        dispatch(ID_PRODI("55201"));
+        dispatch(NAME_PRODI("Teknik Informatika"));
+      } else if (AUTH.getRole() === "2") {
+        dispatch(ID_PRODI("22201"));
+        dispatch(NAME_PRODI("Teknik Sipil"));
+      } else if (AUTH.getRole() === "3") {
+        dispatch(ID_PRODI("26201"));
+        dispatch(NAME_PRODI("Teknik Industri"));
+      }
+    };
+  });
   useEffect(() => {
     AOS.init();
     AOS.refresh();
@@ -67,7 +84,8 @@ function LoginPage() {
   return (
     <div className="mainLogin flex lg:flex-row flex-col gap-x-10 gap-y-5 justify-center items-center">
       <img src={require("../../assets/img/ftLogo.png")} alt="Logo Fakultas Teknik UNSUR" className="left-0 lg:flex md:flex hidden opacity-50" />
-      <div className="box flex flex-col lg:p-10 p-3 lg:w-1/2 w-5/6 h-3/4 justify-center items-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
+      <div className="box flex flex-col lg:p-10 p-3 lg:w-1/2 w-5/6 h-max justify-center items-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
+        <img src={require("../../assets/img/ftLogo.png")} alt="Logo Fakultas Teknik UNSUR" className="left-0 lg:hidden flex opacity-50 w-32" />
         <h1 className="title text-center lg:text-3xl text-xl">
           Absensi Fakultas Teknik <br /> Universitas Suryakancana
         </h1>
@@ -75,7 +93,7 @@ function LoginPage() {
           <form action="" onSubmit={handleLogin} className="w-full">
             <div className="p-3 flex flex-row gap-x-2 items-center">
               <AiOutlineUser className="text-2xl" size={30} />
-              <div className="relative z-0 w-full mb-6 group">
+              <div className="relative z-0 w-full lg:mb-6 mb-2 group">
                 <input
                   type="text"
                   name="username"

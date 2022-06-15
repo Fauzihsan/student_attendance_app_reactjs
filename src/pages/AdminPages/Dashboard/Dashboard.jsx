@@ -2,7 +2,6 @@ import Sidebar from "../../../components/Sidebar/Sidebar";
 import Header from "../../../components/Header/Header";
 import { AUTH } from "../../../utils/helpers/AuthCookies";
 import "../../../assets/css/style.css";
-
 export default function Dashboard() {
   return (
     <>
