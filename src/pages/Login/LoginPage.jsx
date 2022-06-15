@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLazyQuery } from "@apollo/client";
 import { GET_USERS } from "../../api/Model/Query/GetUsers";
 import { AUTH } from "../../utils/helpers/AuthCookies";
-import { ID_PRODI, NAME_PRODI } from "../../redux/prodiSlice";
 import { AiOutlineEyeInvisible, AiOutlineEye, AiOutlineUser, AiOutlineSecurityScan } from "react-icons/ai";
 import "./LoginPage.css";
 import AOS from "aos";
@@ -12,21 +10,6 @@ import "aos/dist/aos.css";
 import LoadingAnimation from "../../components/LoadingAnimation/LoadingAnimation";
 
 function LoginPage() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    return function cleanup() {
-      if (AUTH.getRole() === "1") {
-        dispatch(ID_PRODI("55201"));
-        dispatch(NAME_PRODI("Teknik Informatika"));
-      } else if (AUTH.getRole() === "2") {
-        dispatch(ID_PRODI("22201"));
-        dispatch(NAME_PRODI("Teknik Sipil"));
-      } else if (AUTH.getRole() === "3") {
-        dispatch(ID_PRODI("26201"));
-        dispatch(NAME_PRODI("Teknik Industri"));
-      }
-    };
-  });
   useEffect(() => {
     AOS.init();
     AOS.refresh();

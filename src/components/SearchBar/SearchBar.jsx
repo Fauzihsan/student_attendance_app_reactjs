@@ -2,7 +2,15 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { SEARCH_KEYWORDS } from "../../redux/searchSlice";
 
-function SearchBar() {
+function SearchBar({ type }) {
+  let title;
+
+  if (type === "student") {
+    title = "Cari NPM Mahasiswa";
+  } else if (type === "lecturer") {
+    title = "Cari NIDN Dosen";
+  }
+
   const dispatch = useDispatch();
   return (
     <div className="p-4">
@@ -19,7 +27,8 @@ function SearchBar() {
           type="text"
           id="table-search"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Cari NPM Mahasiswa"
+          autoComplete="off"
+          placeholder={title}
           onChange={(e) => {
             dispatch(SEARCH_KEYWORDS(e.target.value));
           }}

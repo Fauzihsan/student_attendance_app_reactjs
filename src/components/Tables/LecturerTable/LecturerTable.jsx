@@ -1,55 +1,39 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { AiOutlineDelete } from "react-icons/ai";
-import { useMutation, useSubscription } from "@apollo/client";
-import { GET_STUDENTS } from "../../../api/Model/Subscription/GetStudents";
-import { GET_STUDENTS_SEARCH } from "../../../api/Model/Subscription/GetSearchStudents";
-import { GET_STUDENTS_AKTIF } from "../../../api/Model/Subscription/GetStudentsAktif";
-import { GET_STUDENTS_NONAKTIF } from "../../../api/Model/Subscription/GetStudentsNonAktif";
-import { DELETE_STUDENT } from "../../../api/Model/Mutation/Delete/DeleteStudent";
+import { DELETE_LECTURER } from "../../../api/Model/Mutation/Delete/DeleteLecturer";
 import { DELETE_USER } from "../../../api/Model/Mutation/Delete/DeleteUser";
-
-import LoadingAnimationXL from "../../LoadingAnimation/LoadingAnimationXL";
-import DeleteModal from "../../ModalDelete/DeleteModal";
+import { GET_LECTURERS } from "../../../api/Model/Subscription/GetLecturers";
 import LoadingAnimation from "../../LoadingAnimation/LoadingAnimation";
-import UpdateStudentModal from "../../ModalUpdate/UpdateStudentModal";
+import LoadingAnimationXL from "../../LoadingAnimation/LoadingAnimationXL";
+import UpdateLecturerModal from "../../ModalUpdate/UpdateLecturerModal";
+import { useMutation, useSubscription } from "@apollo/client";
+import { AiOutlineDelete } from "react-icons/ai";
+import DeleteModal from "../../ModalDelete/DeleteModal";
+import { GET_LECTURERS_SEARCH } from "../../../api/Model/Subscription/GetSearchLecturers";
 
-function StudentTable() {
-  const id_prodi = useSelector((state) => state.prodi.id);
-  const filter = useSelector((state) => state.filter.value);
+function LecturerTable() {
   const search = useSelector((state) => state.search.value);
-
-  const [filterCategory, setFilterCategory] = useState(GET_STUDENTS);
-  const { data: dataStudents, loading: fetchStudents } = useSubscription(filterCategory, { variables: { prodi: id_prodi } });
-  const { data: dataStudentSearch, loading: fetchSearch } = useSubscription(GET_STUDENTS_SEARCH, {
+  const { data: dataLecturers, loading: fetchLecturers } = useSubscription(GET_LECTURERS);
+  const { data: dataLecturerSearch, loading: fetchSearch } = useSubscription(GET_LECTURERS_SEARCH, {
     variables: {
-      npm: search,
-      prodi: id_prodi,
+      nidn: search,
     },
   });
 
   const [data, setData] = useState([]);
   useEffect(() => {
     setData([]);
-    if (filter === "aktif") {
-      setFilterCategory(GET_STUDENTS_AKTIF);
-    } else if (filter === "tidak_aktif") {
-      setFilterCategory(GET_STUDENTS_NONAKTIF);
-    } else {
-      setFilterCategory(GET_STUDENTS);
-    }
-    !fetchStudents &&
-      dataStudents?.students.forEach((student) => {
-        setData((data) => [...data, { npm: student.npm, fullname: student.fullname, is_active: student.is_active, is_checked: false }]);
+    !fetchLecturers &&
+      dataLecturers?.lecturers.forEach((lecturer) => {
+        setData((data) => [...data, { nidn: lecturer.nidn, fullname: lecturer.fullname, address: lecturer.address, phone_number: lecturer.phone_number, email: lecturer.email, is_checked: false }]);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, dataStudents?.students]);
+  }, [dataLecturers?.lecturers]);
 
   const handleChange = (e) => {
     setData(
       [...data].map((obj) => {
-        if (obj.npm === e.target.value) {
+        if (obj.nidn === e.target.value) {
           return {
             ...obj,
             is_checked: !obj.is_checked,
@@ -63,7 +47,7 @@ function StudentTable() {
 
   //DELETE MULTIPLE DATA
   const [showModal, setShowModal] = useState(false);
-  const [deleteStudent, { loading: loadingDelete }] = useMutation(DELETE_STUDENT, {
+  const [deleteLecturer, { loading: loadingDelete }] = useMutation(DELETE_LECTURER, {
     onCompleted: () => {
       setShowModal(false);
       setData([]);
@@ -73,17 +57,17 @@ function StudentTable() {
 
   const [deleteUser] = useMutation(DELETE_USER);
   const [finishDelete, setFinishDelete] = useState(false);
-  const handleDeleteStudent = () => {
-    data.forEach((student) => {
-      if (student.is_checked) {
-        deleteStudent({
+  const handleDeleteLecturer = () => {
+    data.forEach((lecturer) => {
+      if (lecturer.is_checked) {
+        deleteLecturer({
           variables: {
-            npm: student.npm,
+            nidn: lecturer.nidn,
           },
         });
         deleteUser({
           variables: {
-            username: student.npm,
+            username: lecturer.nidn,
           },
         });
       }
@@ -140,13 +124,19 @@ function StudentTable() {
                 </div>
               </th>
               <th scope="col" className="px-6 py-3">
-                NPM
+                NIDN
               </th>
               <th scope="col" className="px-6 py-3">
                 Nama
               </th>
               <th scope="col" className="px-6 py-3">
-                Status
+                Email
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Nomor Telepon
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Alamat
               </th>
               <th scope="col" className="px-6 py-3 text-center">
                 Aksi
@@ -154,7 +144,7 @@ function StudentTable() {
             </tr>
           </thead>
           <tbody>
-            {fetchStudents || fetchSearch ? (
+            {fetchLecturers || fetchSearch ? (
               <tr>
                 <td colSpan={6} rowSpan={6}>
                   <LoadingAnimationXL />
@@ -162,13 +152,13 @@ function StudentTable() {
               </tr>
             ) : search === "" ? (
               data.length !== 0 ? (
-                data.map((student) => (
-                  <tr key={student.npm} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
+                data.map((lecturer) => (
+                  <tr key={lecturer.nidn} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
                     <td className="w-4 p-4">
                       <div className="flex items-center">
                         <input
-                          defaultChecked={student.is_checked}
-                          value={student.npm}
+                          defaultChecked={lecturer.is_checked}
+                          value={lecturer.nidn}
                           onChange={handleChange}
                           id="checkbox-table-search-1"
                           type="checkbox"
@@ -179,39 +169,43 @@ function StudentTable() {
                         </label>
                       </div>
                     </td>
-                    <td className="px-6 py-4">{student.npm}</td>
-                    <td className="px-6 py-4">{student.fullname}</td>
-                    <td className="px-6 py-4">{student.is_active === true ? "Aktif" : "Tidak Aktif"}</td>
+                    <td className="px-6 py-4">{lecturer.nidn}</td>
+                    <td className="px-6 py-4">{lecturer.fullname}</td>
+                    <td className="px-6 py-4">{lecturer.email}</td>
+                    <td className="px-6 py-4">{lecturer.phone_number}</td>
+                    <td className="px-6 py-4">{lecturer.address}</td>
                     <td className="flex flex-row justify-center gap-x-1 pt-2">
-                      <UpdateStudentModal data={student} />
-                      <DeleteModal data={student} type={"student"} />
+                      <UpdateLecturerModal data={lecturer} />
+                      <DeleteModal data={lecturer} type={"lecturer"} />
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
                   <td colSpan={6}>
-                    <p className="text-center py-3">Data Mahasiswa Kosong</p>
+                    <p className="text-center py-3">Data Dosen Kosong</p>
                   </td>
                 </tr>
               )
-            ) : dataStudentSearch?.students.length !== 0 ? (
-              dataStudentSearch?.students.map((student) => (
-                <tr key={student.npm} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
+            ) : dataLecturerSearch?.lecturers.length !== 0 ? (
+              dataLecturerSearch?.lecturers.map((lecturer) => (
+                <tr key={lecturer.nidn} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
                   <td className="w-4 p-4"></td>
-                  <td className="px-6 py-4">{student.npm}</td>
-                  <td className="px-6 py-4">{student.fullname}</td>
-                  <td className="px-6 py-4">{student.is_active === true ? "Aktif" : "Tidak Aktif"}</td>
+                  <td className="px-6 py-4">{lecturer.nidn}</td>
+                  <td className="px-6 py-4">{lecturer.fullname}</td>
+                  <td className="px-6 py-4">{lecturer.email}</td>
+                  <td className="px-6 py-4">{lecturer.phone_number}</td>
+                  <td className="px-6 py-4">{lecturer.address}</td>
                   <td className="flex flex-row justify-center gap-x-1 pt-2">
-                    <UpdateStudentModal data={student} />
-                    <DeleteModal data={student} />
+                    <UpdateLecturerModal data={lecturer} />
+                    <DeleteModal data={lecturer} />
                   </td>
                 </tr>
               ))
             ) : (
               <tr>
                 <td colSpan={6}>
-                  <p className="text-center py-3">NPM TIDAK DITEMUKAN</p>
+                  <p className="text-center py-3">NIDN TIDAK DITEMUKAN</p>
                 </td>
               </tr>
             )}
@@ -235,9 +229,9 @@ function StudentTable() {
                 <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                   Anda yakin ingin menghapus sejumlah
                   <br />
-                  <b>{data.filter((d) => d.is_checked === true).length} Mahasiswa</b>
+                  <b>{data.filter((d) => d.is_checked === true).length} Dosen</b>
                 </h3>
-                <button type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={handleDeleteStudent}>
+                <button type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={handleDeleteLecturer}>
                   {loadingDelete ? <LoadingAnimation /> : "Hapus"}
                 </button>
                 <button
@@ -256,4 +250,4 @@ function StudentTable() {
   );
 }
 
-export default StudentTable;
+export default LecturerTable;

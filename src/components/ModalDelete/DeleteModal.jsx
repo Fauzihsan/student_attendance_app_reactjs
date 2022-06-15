@@ -1,16 +1,20 @@
 import React from "react";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import { useMutation } from "@apollo/client";
 import { DELETE_STUDENT } from "../../api/Model/Mutation/Delete/DeleteStudent";
 import { DELETE_USER } from "../../api/Model/Mutation/Delete/DeleteUser";
 import { AiOutlineDelete } from "react-icons/ai";
-import Swal from "sweetalert2";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
+import { DELETE_LECTURER } from "../../api/Model/Mutation/Delete/DeleteLecturer";
 
-function DeleteModal({ student }) {
+function DeleteModal({ data, type }) {
   const [showModal, setShowModal] = useState(false);
 
-  const [deleteStudent, { loading: loadingDelete }] = useMutation(DELETE_STUDENT, {
+  const [studentDelete, setStudentDelete] = useState({ npm: "", fullname: "" });
+  const [lecturerDelete, setLecturerDelete] = useState({ nidn: "", fullname: "" });
+
+  const [deleteStudent, { loading: loadingDeleteStudent }] = useMutation(DELETE_STUDENT, {
     onCompleted: () => {
       Swal.fire({
         position: "top-end",
@@ -25,31 +29,60 @@ function DeleteModal({ student }) {
     },
   });
 
+  const [deleteLecturer, { loading: loadingDeleteLecturer }] = useMutation(DELETE_LECTURER, {
+    onCompleted: () => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Data Dosen Berhasil Dihapus",
+        showConfirmButton: false,
+        timer: 1200,
+      });
+
+      setShowModal(false);
+      setLecturerDelete("");
+    },
+  });
+
   const [deleteUser] = useMutation(DELETE_USER);
 
-  const [studentDelete, setStudentDelete] = useState({ npm: "", fullname: "" });
-  const handleDeleteStudent = () => {
-    deleteStudent({
-      variables: {
-        npm: studentDelete.npm,
-      },
-    });
+  const handleDelete = () => {
+    if (type === "student") {
+      deleteStudent({
+        variables: {
+          npm: studentDelete.npm,
+        },
+      });
+      deleteUser({
+        variables: {
+          username: studentDelete.npm,
+        },
+      });
+    } else if (type === "lecturer") {
+      deleteLecturer({
+        variables: {
+          nidn: lecturerDelete.nidn,
+        },
+      });
+      deleteUser({
+        variables: {
+          username: lecturerDelete.nidn,
+        },
+      });
+    }
+  };
 
-    deleteUser({
-      variables: {
-        npm: studentDelete.npm,
-      },
-    });
+  const cek = () => {
+    setShowModal(true);
+    if (type === "student") {
+      setStudentDelete({ ...studentDelete, npm: data.npm, fullname: data.fullname });
+    } else {
+      setLecturerDelete({ ...lecturerDelete, nidn: data.nidn, fullname: data.fullname });
+    }
   };
   return (
     <>
-      <button
-        onClick={() => {
-          setShowModal(true);
-          setStudentDelete({ ...studentDelete, npm: student.npm, fullname: student.fullname });
-        }}
-        className="bg-secondary-red text-white hover:bg-red-800 p-2 rounded-md"
-      >
+      <button onClick={cek} className="bg-secondary-red text-white hover:bg-red-800 p-2 rounded-md">
         <AiOutlineDelete size={25} />
       </button>
       {showModal && (
@@ -68,8 +101,8 @@ function DeleteModal({ student }) {
                 <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                   Anda yakin ingin menghapus data <br /> <b>{studentDelete.fullname}</b>
                 </h3>
-                <button type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={handleDeleteStudent}>
-                  {loadingDelete ? <LoadingAnimation /> : "Hapus"}
+                <button type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={handleDelete}>
+                  {loadingDeleteStudent || loadingDeleteLecturer ? <LoadingAnimation /> : "Hapus"}
                 </button>
                 <button
                   type="button"

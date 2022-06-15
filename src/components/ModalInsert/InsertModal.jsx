@@ -2,11 +2,20 @@ import React from "react";
 import { FaRegWindowClose } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { MODAL_ADD } from "../../redux/modalSlice";
+import FormLecturer from "../Forms/FormLecturer/FormLecturer";
 import FormStudent from "../Forms/FormStudent/FormStudent";
 
-function InsertModal() {
+function InsertModal({ type }) {
   const modalAdd = useSelector((state) => state.modal.add);
   const dispatch = useDispatch();
+
+  let title;
+
+  if (type === "student") {
+    title = "Mahasiswa";
+  } else if (type === "lecturer") {
+    title = "Dosen";
+  }
 
   return (
     <>
@@ -25,7 +34,7 @@ function InsertModal() {
           <div className="relative p-4 mx-auto w-full max-w-xl h-full md:h-auto">
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               <div className="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
-                <h3 className="text-xl font-medium text-gray-900 dark:text-white">Tambah Data Mahasiswa Baru</h3>
+                <h3 className="text-xl font-medium text-gray-900 dark:text-white">Tambah Data {title} Baru</h3>
                 <button
                   onClick={() => {
                     dispatch(MODAL_ADD(false));
@@ -38,9 +47,7 @@ function InsertModal() {
                 </button>
               </div>
 
-              <div className="p-6 space-y-6">
-                <FormStudent />
-              </div>
+              <div className="p-6 space-y-6">{type === "student" ? <FormStudent /> : type === "lecturer" ? <FormLecturer /> : []}</div>
             </div>
           </div>
         </div>

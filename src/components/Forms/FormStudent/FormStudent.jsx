@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { MODAL_ADD } from "../../../redux/modalSlice";
 import { useMutation } from "@apollo/client";
 import { INSERT_STUDENT } from "../../../api/Model/Mutation/Insert/InsertStudent";
-import { INSERT_USER } from "../../../api/Model/Mutation/Insert/InsertUser";
+import { INSERT_USER } from "../../../api/Model/Mutation/Insert/InsertUsers";
 import ImportModal from "../../ModalInsert/ImportModal";
 import LoadingAnimation from "../../LoadingAnimation/LoadingAnimation";
 import Swal from "sweetalert2";

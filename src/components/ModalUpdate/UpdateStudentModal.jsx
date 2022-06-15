@@ -3,12 +3,14 @@ import React from "react";
 import { useState } from "react";
 import { BsPencilSquare } from "react-icons/bs";
 import { FaRegWindowClose } from "react-icons/fa";
-import { UPDATE_STUDENT } from "../../api/Model/Mutation/Update/UpdateUser";
+import { UPDATE_STUDENT } from "../../api/Model/Mutation/Update/UpdateStudents";
 import Swal from "sweetalert2";
 import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
+import { UPDATE_USER } from "../../api/Model/Mutation/Update/UpdateUsers";
 
-function UpdateModal({ student }) {
-  const { npm, fullname, is_active } = student;
+function UpdateStudentModal({ data }) {
+  const { npm, fullname, is_active } = data;
+
   const [showModal, setShowModal] = useState(false);
 
   const INITIAL_STATE = {
@@ -19,6 +21,7 @@ function UpdateModal({ student }) {
 
   const [studentUpdate, setStudentUpdate] = useState(INITIAL_STATE);
 
+  const [updateUser] = useMutation(UPDATE_USER);
   const [updateStudent, { loading }] = useMutation(UPDATE_STUDENT, {
     onCompleted: () => {
       Swal.fire({
@@ -30,7 +33,6 @@ function UpdateModal({ student }) {
       });
 
       setShowModal(false);
-      setStudentUpdate(INITIAL_STATE);
       setIsUpdated(false);
     },
   });
@@ -47,9 +49,7 @@ function UpdateModal({ student }) {
   const [error, setError] = useState("");
   const handleUpdate = (e) => {
     e.preventDefault();
-    if (studentUpdate.fullname === "") {
-      setError("Nama Mahasiswa Tidak Boleh Kosong");
-    } else if (studentUpdate.fullname === fullname && studentUpdate.is_active === is_active) {
+    if (studentUpdate.fullname === fullname && studentUpdate.is_active === is_active) {
       Swal.fire({
         position: "top-end",
         icon: "error",
@@ -66,13 +66,12 @@ function UpdateModal({ student }) {
             is_active: studentUpdate.is_active,
           },
         });
-      } else {
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: "Tidak Ada Perubahan",
-          showConfirmButton: false,
-          timer: 1200,
+        updateUser({
+          variables: {
+            username: npm,
+            password: npm,
+            fullname: studentUpdate.fullname,
+          },
         });
       }
     }
@@ -99,6 +98,7 @@ function UpdateModal({ student }) {
                 <button
                   onClick={() => {
                     setShowModal(false);
+                    setStudentUpdate(INITIAL_STATE);
                   }}
                   type="button"
                   className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -118,7 +118,7 @@ function UpdateModal({ student }) {
                       required
                       placeholder=" "
                       autoComplete="off"
-                      defaultValue={fullname}
+                      value={studentUpdate.fullname}
                       onChange={handleOnChange}
                     />
                     <label
@@ -132,7 +132,7 @@ function UpdateModal({ student }) {
 
                   <div className="relative z-0 w-full mb-6 group">
                     <select
-                      defaultValue={is_active}
+                      value={studentUpdate.is_active}
                       name="is_active"
                       onChange={handleOnChange}
                       className="bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -158,4 +158,4 @@ function UpdateModal({ student }) {
   );
 }
 
-export default UpdateModal;
+export default UpdateStudentModal;
