@@ -5,7 +5,7 @@ import FilterStudents from "../../../components/FilterStudents/FilterStudents";
 import SearchBar from "../../../components/SearchBar/SearchBar";
 import StudentTable from "../../../components/Tables/StudentTable/StudentTable";
 import { useSelector } from "react-redux";
-import InsertModal from "../../../components/ModalInsert/InsertModal";
+import InsertModal from "../../../components/Modal/ModalInsert/InsertModal/InsertModal";
 
 function KelolaMahasiswa() {
   const name_prodi = useSelector((state) => state.prodi.name);

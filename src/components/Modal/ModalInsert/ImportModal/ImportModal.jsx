@@ -4,11 +4,11 @@ import * as XLSX from "xlsx";
 import { useMutation } from "@apollo/client";
 import Swal from "sweetalert2";
 import { FaRegWindowClose } from "react-icons/fa";
-import { IMPORT_USERS } from "../../api/Model/Mutation/Insert/ImportUsers";
-import { IMPORT_STUDENTS } from "../../api/Model/Mutation/Insert/ImportStudents";
-import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
+import { IMPORT_USERS } from "../../../../api/Model/Mutation/Insert/ImportUsers";
+import { IMPORT_STUDENTS } from "../../../../api/Model/Mutation/Insert/ImportStudents";
+import LoadingAnimation from "../../../LoadingAnimation/LoadingAnimation";
 import { useSelector, useDispatch } from "react-redux";
-import { MODAL_ADD, MODAL_IMPORT } from "../../redux/modalSlice";
+import { MODAL_ADD, MODAL_IMPORT } from "../../../../redux/modalSlice";
 
 function ImportModal() {
   const id_prodi = useSelector((state) => state.prodi.id);

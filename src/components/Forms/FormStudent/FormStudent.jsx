@@ -5,7 +5,7 @@ import { MODAL_ADD } from "../../../redux/modalSlice";
 import { useMutation } from "@apollo/client";
 import { INSERT_STUDENT } from "../../../api/Model/Mutation/Insert/InsertStudent";
 import { INSERT_USER } from "../../../api/Model/Mutation/Insert/InsertUsers";
-import ImportModal from "../../ModalInsert/ImportModal";
+import ImportModal from "../../Modal/ModalInsert/ImportModal/ImportModal";
 import LoadingAnimation from "../../LoadingAnimation/LoadingAnimation";
 import Swal from "sweetalert2";
 
@@ -33,6 +33,15 @@ function FormStudent() {
 
       setStudent(INITIAL_STATE);
       dispatch(MODAL_ADD(false));
+    },
+    onError: () => {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "NPM TELAH DIGUNAKAN,PERIKSA KEMBALI",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     },
   });
 

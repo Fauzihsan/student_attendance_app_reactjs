@@ -11,9 +11,9 @@ import { DELETE_STUDENT } from "../../../api/Model/Mutation/Delete/DeleteStudent
 import { DELETE_USER } from "../../../api/Model/Mutation/Delete/DeleteUser";
 
 import LoadingAnimationXL from "../../LoadingAnimation/LoadingAnimationXL";
-import DeleteModal from "../../ModalDelete/DeleteModal";
+import DeleteModal from "../../Modal/ModalDelete/DeleteModal";
 import LoadingAnimation from "../../LoadingAnimation/LoadingAnimation";
-import UpdateStudentModal from "../../ModalUpdate/UpdateStudentModal";
+import UpdateStudentModal from "../../Modal/ModalUpdate/UpdateStudentModal";
 
 function StudentTable() {
   const id_prodi = useSelector((state) => state.prodi.id);

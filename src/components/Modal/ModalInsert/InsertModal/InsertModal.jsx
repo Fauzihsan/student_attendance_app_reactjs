@@ -1,9 +1,10 @@
 import React from "react";
 import { FaRegWindowClose } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { MODAL_ADD } from "../../redux/modalSlice";
-import FormLecturer from "../Forms/FormLecturer/FormLecturer";
-import FormStudent from "../Forms/FormStudent/FormStudent";
+import FormClassName from "../../../Forms/FormClassName/FormClassName";
+import { MODAL_ADD } from "../../../../redux/modalSlice";
+import FormLecturer from "../../../Forms/FormLecturer/FormLecturer";
+import FormStudent from "../../../Forms/FormStudent/FormStudent";
 
 function InsertModal({ type }) {
   const modalAdd = useSelector((state) => state.modal.add);
@@ -15,6 +16,8 @@ function InsertModal({ type }) {
     title = "Mahasiswa";
   } else if (type === "lecturer") {
     title = "Dosen";
+  } else if (type === "class") {
+    title = "Kelas";
   }
 
   return (
@@ -47,7 +50,7 @@ function InsertModal({ type }) {
                 </button>
               </div>
 
-              <div className="p-6 space-y-6">{type === "student" ? <FormStudent /> : type === "lecturer" ? <FormLecturer /> : []}</div>
+              <div className="p-6 space-y-6">{type === "student" ? <FormStudent /> : type === "lecturer" ? <FormLecturer /> : <FormClassName />}</div>
             </div>
           </div>
         </div>

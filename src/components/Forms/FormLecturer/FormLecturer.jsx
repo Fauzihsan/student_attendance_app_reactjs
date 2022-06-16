@@ -35,6 +35,15 @@ function FormLecturer() {
       setLecturer(INITIAL_STATE);
       dispatch(MODAL_ADD(false));
     },
+    onError: () => {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "NIDN TELAH DIGUNAKAN,PERIKSA KEMBALI",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    },
   });
 
   const handleInputLecturer = (e) => {

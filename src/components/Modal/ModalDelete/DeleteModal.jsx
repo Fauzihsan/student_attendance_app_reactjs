@@ -2,17 +2,19 @@ import React from "react";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { useMutation } from "@apollo/client";
-import { DELETE_STUDENT } from "../../api/Model/Mutation/Delete/DeleteStudent";
-import { DELETE_USER } from "../../api/Model/Mutation/Delete/DeleteUser";
+import { DELETE_STUDENT } from "../../../api/Model/Mutation/Delete/DeleteStudent";
+import { DELETE_USER } from "../../../api/Model/Mutation/Delete/DeleteUser";
 import { AiOutlineDelete } from "react-icons/ai";
-import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
-import { DELETE_LECTURER } from "../../api/Model/Mutation/Delete/DeleteLecturer";
+import LoadingAnimation from "../../LoadingAnimation/LoadingAnimation";
+import { DELETE_LECTURER } from "../../../api/Model/Mutation/Delete/DeleteLecturer";
+import { DELETE_CLASS_NAME } from "../../../api/Model/Mutation/Delete/DeleteClassName";
 
 function DeleteModal({ data, type }) {
   const [showModal, setShowModal] = useState(false);
 
   const [studentDelete, setStudentDelete] = useState({ npm: "", fullname: "" });
   const [lecturerDelete, setLecturerDelete] = useState({ nidn: "", fullname: "" });
+  const [classNameDelete, setClassNameDelete] = useState({ id: "", class_name: "" });
 
   const [deleteStudent, { loading: loadingDeleteStudent }] = useMutation(DELETE_STUDENT, {
     onCompleted: () => {
@@ -35,6 +37,20 @@ function DeleteModal({ data, type }) {
         position: "top-end",
         icon: "success",
         title: "Data Dosen Berhasil Dihapus",
+        showConfirmButton: false,
+        timer: 1200,
+      });
+
+      setShowModal(false);
+      setLecturerDelete("");
+    },
+  });
+  const [deleteClassName, { loading: loadingDeleteClassName }] = useMutation(DELETE_CLASS_NAME, {
+    onCompleted: () => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Kelas Berhasil Dihapus",
         showConfirmButton: false,
         timer: 1200,
       });
@@ -69,20 +85,28 @@ function DeleteModal({ data, type }) {
           username: lecturerDelete.nidn,
         },
       });
+    } else if (type === "class") {
+      deleteClassName({
+        variables: {
+          id: classNameDelete.id,
+        },
+      });
     }
   };
 
-  const cek = () => {
+  const assignValue = () => {
     setShowModal(true);
     if (type === "student") {
       setStudentDelete({ ...studentDelete, npm: data.npm, fullname: data.fullname });
-    } else {
+    } else if (type === "lecturer") {
       setLecturerDelete({ ...lecturerDelete, nidn: data.nidn, fullname: data.fullname });
+    } else {
+      setClassNameDelete({ ...classNameDelete, id: data.id, class_name: data.class_name });
     }
   };
   return (
     <>
-      <button onClick={cek} className="bg-secondary-red text-white hover:bg-red-800 p-2 rounded-md">
+      <button onClick={assignValue} className="bg-secondary-red text-white hover:bg-red-800 p-2 rounded-md">
         <AiOutlineDelete size={25} />
       </button>
       {showModal && (
@@ -98,11 +122,21 @@ function DeleteModal({ data, type }) {
                 <svg className="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                  Anda yakin ingin menghapus data <br /> <b>{studentDelete.fullname}</b>
-                </h3>
+                {type === "student" ? (
+                  <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                    Anda yakin ingin menghapus Mahasiswa <br /> <b>{studentDelete.fullname}</b>
+                  </h3>
+                ) : type === "lecturer" ? (
+                  <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                    Anda yakin ingin menghapus Dosen <br /> <b>{lecturerDelete.fullname}</b>
+                  </h3>
+                ) : (
+                  <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                    Anda yakin ingin menghapus Kelas <br /> <b>{classNameDelete.class_name}</b>
+                  </h3>
+                )}
                 <button type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={handleDelete}>
-                  {loadingDeleteStudent || loadingDeleteLecturer ? <LoadingAnimation /> : "Hapus"}
+                  {loadingDeleteStudent || loadingDeleteLecturer || loadingDeleteClassName ? <LoadingAnimation /> : "Hapus"}
                 </button>
                 <button
                   type="button"

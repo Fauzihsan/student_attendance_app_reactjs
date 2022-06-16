@@ -5,10 +5,10 @@ import { DELETE_USER } from "../../../api/Model/Mutation/Delete/DeleteUser";
 import { GET_LECTURERS } from "../../../api/Model/Subscription/GetLecturers";
 import LoadingAnimation from "../../LoadingAnimation/LoadingAnimation";
 import LoadingAnimationXL from "../../LoadingAnimation/LoadingAnimationXL";
-import UpdateLecturerModal from "../../ModalUpdate/UpdateLecturerModal";
+import UpdateLecturerModal from "../../Modal/ModalUpdate/UpdateLecturerModal";
 import { useMutation, useSubscription } from "@apollo/client";
 import { AiOutlineDelete } from "react-icons/ai";
-import DeleteModal from "../../ModalDelete/DeleteModal";
+import DeleteModal from "../../Modal/ModalDelete/DeleteModal";
 import { GET_LECTURERS_SEARCH } from "../../../api/Model/Subscription/GetSearchLecturers";
 
 function LecturerTable() {

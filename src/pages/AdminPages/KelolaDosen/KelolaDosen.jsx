@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../../components/Header/Header";
-import InsertModal from "../../../components/ModalInsert/InsertModal";
+import InsertModal from "../../../components/Modal/ModalInsert/InsertModal/InsertModal";
 import SearchBar from "../../../components/SearchBar/SearchBar";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import LecturerTable from "../../../components/Tables/LecturerTable/LecturerTable";

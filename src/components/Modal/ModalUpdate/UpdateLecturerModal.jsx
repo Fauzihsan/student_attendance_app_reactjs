@@ -1,11 +1,11 @@
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
-import { UPDATE_LECTURER } from "../../api/Model/Mutation/Update/UpdateLecturers";
-import { UPDATE_USER } from "../../api/Model/Mutation/Update/UpdateUsers";
+import { UPDATE_LECTURER } from "../../../api/Model/Mutation/Update/UpdateLecturers";
+import { UPDATE_USER } from "../../../api/Model/Mutation/Update/UpdateUsers";
 import Swal from "sweetalert2";
 import { BsPencilSquare } from "react-icons/bs";
 import { FaRegWindowClose } from "react-icons/fa";
-import LoadingAnimation from "../LoadingAnimation/LoadingAnimation";
+import LoadingAnimation from "../../LoadingAnimation/LoadingAnimation";
 
 function UpdateLecturerModal({ data }) {
   const { nidn, fullname, email, phone_number, address } = data;
