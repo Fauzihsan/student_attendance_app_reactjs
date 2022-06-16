@@ -1,21 +1,21 @@
 import { Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/Login/LoginPage";
-import ErrorPage from "./pages/Error/ErrorPage";
+import LoginPage from "./pages/Login";
+import ErrorPage from "./pages/Error";
 import AdminRoute from "./routes/AdminRoute";
-import Dashboard from "./pages/AdminPages/Dashboard/Dashboard";
-import KelolaMahasiswa from "./pages/AdminPages/KelolaMahasiswa/KelolaMahasiswa";
-import KelolaDosen from "./pages/AdminPages/KelolaDosen/KelolaDosen";
-import Penjadwalan from "./pages/AdminPages/Penjadwalan/Penjadwalan";
-import KelolaKelas from "./pages/AdminPages/KelolaKelas/KelolaKelas";
+import Dashboard from "./pages/AdminPages/Dashboard";
+import KelolaMahasiswa from "./pages/AdminPages/KelolaMahasiswa";
+import KelolaDosen from "./pages/AdminPages/KelolaDosen";
+import Penjadwalan from "./pages/AdminPages/Penjadwalan";
+import KelolaKelas from "./pages/AdminPages/KelolaKelas";
 import HasSignInRoute from "./routes/HasSignInRoute";
-import KelolaMatkul from "./pages/AdminPages/KelolaMatkul/KelolaMatkul";
+import KelolaMatkul from "./pages/AdminPages/KelolaMatkul";
 import StudentRoute from "./routes/StudentRoute";
-import LihatAbsensi from "./pages/StudentPages/LihatAbsensi/LihatAbsensi";
-import Akun from "./pages/Akun/Akun";
+import LihatAbsensi from "./pages/StudentPages/LihatAbsensi";
+import Akun from "./pages/Akun";
 import LecturerRoute from "./routes/LecturerRoute";
-import Absensi from "./pages/LecturerPages/Absensi/Absensi";
-import HomeStudent from "./pages/StudentPages/Home/HomeStudent";
-import HomeLecturer from "./pages/LecturerPages/Home/HomeLecturer";
+import Absensi from "./pages/LecturerPages/Absensi";
+import HomeStudent from "./pages/StudentPages/Home";
+import HomeLecturer from "./pages/LecturerPages/Home";
 
 export default function App() {
   return (

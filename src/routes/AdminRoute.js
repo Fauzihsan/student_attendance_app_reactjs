@@ -1,7 +1,7 @@
 import React from "react";
 import { AUTH } from "../utils/helpers/AuthCookies";
 import { Outlet } from "react-router-dom";
-import ErrorPage from "../pages/Error/ErrorPage";
+import ErrorPage from "../pages/Error";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ID_PRODI, NAME_PRODI } from "../redux/prodiSlice";

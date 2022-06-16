@@ -1,7 +1,7 @@
 import React from "react";
 import { AUTH } from "../utils/helpers/AuthCookies";
 import { Outlet } from "react-router-dom";
-import ErrorPage from "../pages/Error/ErrorPage";
+import ErrorPage from "../pages/Error";
 
 function StudentRoute() {
   if (AUTH.setAuth() && AUTH.getRole() === "4") return <Outlet />;

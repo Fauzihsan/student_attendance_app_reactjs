@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router";
-import Dashboard from "../pages/AdminPages/Dashboard/Dashboard";
-import HomeLecturer from "../pages/LecturerPages/Home/HomeLecturer";
-import HomeStudent from "../pages/StudentPages/Home/HomeStudent";
+import Dashboard from "../pages/AdminPages/Dashboard";
+import HomeLecturer from "../pages/LecturerPages/Home";
+import HomeStudent from "../pages/StudentPages/Home";
 import { AUTH } from "../utils/helpers/AuthCookies";
 
 function HasSignInRoute() {
