@@ -8,6 +8,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import LoadingAnimation from "../../Loading/LoadingAnimation";
 import { DELETE_LECTURER } from "../../../api/Model/Mutation/Delete/DeleteLecturer";
 import { DELETE_CLASS_NAME } from "../../../api/Model/Mutation/Delete/DeleteClassName";
+import { DELETE_COURSE } from "../../../api/Model/Mutation/Delete/DeleteCourse";
 
 function ModalDelete({ data, type }) {
   const [showModal, setShowModal] = useState(false);
@@ -15,6 +16,7 @@ function ModalDelete({ data, type }) {
   const [studentDelete, setStudentDelete] = useState({ npm: "", fullname: "" });
   const [lecturerDelete, setLecturerDelete] = useState({ nidn: "", fullname: "" });
   const [classNameDelete, setClassNameDelete] = useState({ id: "", class_name: "" });
+  const [courseDelete, setCourseDelete] = useState({ course_id: "", course_name: "" });
 
   const [deleteStudent, { loading: loadingDeleteStudent }] = useMutation(DELETE_STUDENT, {
     onCompleted: () => {
@@ -59,6 +61,20 @@ function ModalDelete({ data, type }) {
       setLecturerDelete("");
     },
   });
+  const [deleteCourse, { loading: loadingDeleteCourse }] = useMutation(DELETE_COURSE, {
+    onCompleted: () => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Mata Kuliah Berhasil Dihapus",
+        showConfirmButton: false,
+        timer: 1200,
+      });
+
+      setShowModal(false);
+      setLecturerDelete("");
+    },
+  });
 
   const [deleteUser] = useMutation(DELETE_USER);
 
@@ -91,6 +107,12 @@ function ModalDelete({ data, type }) {
           id: classNameDelete.id,
         },
       });
+    } else if (type === "course") {
+      deleteCourse({
+        variables: {
+          course_id: courseDelete.course_id,
+        },
+      });
     }
   };
 
@@ -100,8 +122,10 @@ function ModalDelete({ data, type }) {
       setStudentDelete({ ...studentDelete, npm: data.npm, fullname: data.fullname });
     } else if (type === "lecturer") {
       setLecturerDelete({ ...lecturerDelete, nidn: data.nidn, fullname: data.fullname });
-    } else {
+    } else if (type === "class") {
       setClassNameDelete({ ...classNameDelete, id: data.id, class_name: data.class_name });
+    } else if (type === "course") {
+      setCourseDelete({ ...courseDelete, course_id: data.course_id, course_name: data.course_name });
     }
   };
   return (
@@ -130,13 +154,17 @@ function ModalDelete({ data, type }) {
                   <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                     Anda yakin ingin menghapus Dosen <br /> <b>{lecturerDelete.fullname}</b>
                   </h3>
-                ) : (
+                ) : type === "class" ? (
                   <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                     Anda yakin ingin menghapus Kelas <br /> <b>{classNameDelete.class_name}</b>
                   </h3>
+                ) : (
+                  <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                    Anda yakin ingin menghapus Mata Kuliah <br /> <b>{courseDelete.course_name}</b>
+                  </h3>
                 )}
                 <button type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={handleDelete}>
-                  {loadingDeleteStudent || loadingDeleteLecturer || loadingDeleteClassName ? <LoadingAnimation /> : "Hapus"}
+                  {loadingDeleteStudent || loadingDeleteLecturer || loadingDeleteClassName || loadingDeleteCourse ? <LoadingAnimation /> : "Hapus"}
                 </button>
                 <button
                   type="button"
