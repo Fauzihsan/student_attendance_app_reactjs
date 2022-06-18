@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../../../components/Header";
 import InsertModal from "../../../components/Modal/ModalInsert";
 import Sidebar from "../../../components/Sidebar";
-import ClassTable from "../../../components/Tables/ClassTable";
+import ClassNameTable from "../../../components/Tables/ClassNameTable";
 import { useSelector } from "react-redux";
 
 function KelolaKelas() {
@@ -17,7 +17,7 @@ function KelolaKelas() {
           <div className="flex lg:flex-row flex-col justify-between items-center py-3">
             <InsertModal type={"class"} />
           </div>
-          <ClassTable />
+          <ClassNameTable />
         </div>
       </div>
     </>

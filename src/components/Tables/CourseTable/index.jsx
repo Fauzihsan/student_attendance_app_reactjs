@@ -7,7 +7,6 @@ import LoadingAnimationXL from "../../Loading/LoadingAnimationXL";
 
 function CourseTable() {
   const { data: dataCourse, loading } = useSubscription(GET_COURSES);
-  console.log(dataCourse);
   return (
     <>
       <div className="relative h-80 overflow-x-auto shadow-md sm:rounded-lg">

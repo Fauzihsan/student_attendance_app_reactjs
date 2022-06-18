@@ -104,7 +104,7 @@ function ModalImport() {
         Import Data
       </button>
       {modalImport && (
-        <div id="modalImport" tabIndex="-1" className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
+        <div id="modalImport" tabIndex="-1" className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full shadow-lg">
           <div className="relative p-4 mx-auto w-full max-w-4xl h-full md:h-auto">
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               <div className="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">

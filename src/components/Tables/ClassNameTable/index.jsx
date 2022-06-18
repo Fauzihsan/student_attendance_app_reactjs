@@ -5,7 +5,7 @@ import UpdateClassNameModal from "../../Modal/ModalUpdate/ModalUpdateClassName";
 import LoadingAnimationXL from "../../Loading/LoadingAnimationXL";
 import ModalDelete from "../../Modal/ModalDelete";
 
-function ClassTable() {
+function ClassNameTable() {
   const { data, loading } = useSubscription(GET_CLASS_NAMES);
   let no = 1;
 
@@ -24,7 +24,7 @@ function ClassTable() {
               <th scope="col" className="px-6 py-3">
                 Program Studi
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 text-center">
                 Aksi
               </th>
             </tr>
@@ -36,8 +36,8 @@ function ClassTable() {
                   <LoadingAnimationXL />
                 </td>
               </tr>
-            ) : data?.class_names.length !== 0 ? (
-              data?.class_names.map((d) => (
+            ) : data?.class.length !== 0 ? (
+              data?.class.map((d) => (
                 <tr key={d.id} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
                   <td className="px-6 py-4">{no++}</td>
                   <td className="px-6 py-4">{d.class_name}</td>
@@ -62,4 +62,4 @@ function ClassTable() {
   );
 }
 
-export default ClassTable;
+export default ClassNameTable;

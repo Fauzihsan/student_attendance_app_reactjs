@@ -21,7 +21,7 @@ function KelolaMahasiswa() {
             <FilterStudents />
             <SearchBar type="student" />
           </div>
-          <StudentTable />
+          <StudentTable type="" />
         </div>
       </div>
     </>

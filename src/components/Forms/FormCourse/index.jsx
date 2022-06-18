@@ -1,13 +1,12 @@
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { INSERT_COURSE } from "../../../api/Model/Mutation/Insert/InsertCourse";
 import { MODAL_ADD } from "../../../redux/modalSlice";
 import LoadingAnimation from "../../Loading/LoadingAnimation";
 
 function FormCourse() {
-  const id_prodi = useSelector((state) => state.prodi.id);
   const dispatch = useDispatch();
   const INITIAL_STATE = {
     course_id: "",

@@ -6,6 +6,7 @@ import { MODAL_ADD } from "../../../redux/modalSlice";
 import FormLecturer from "../../Forms/FormLecturer";
 import FormStudent from "../../Forms/FormStudent";
 import FormCourse from "../../Forms/FormCourse";
+import FormSchedule from "../../Forms/FormSchedule";
 
 function ModalInsert({ type }) {
   const modalAdd = useSelector((state) => state.modal.add);
@@ -21,6 +22,8 @@ function ModalInsert({ type }) {
     title = "Kelas";
   } else if (type === "course") {
     title = "Mata Kuliah";
+  } else {
+    title = "Tambah Jadwal";
   }
 
   return (
@@ -53,7 +56,7 @@ function ModalInsert({ type }) {
                 </button>
               </div>
 
-              <div className="p-6 space-y-6">{type === "student" ? <FormStudent /> : type === "lecturer" ? <FormLecturer /> : type === "class" ? <FormClassName /> : <FormCourse />}</div>
+              <div className="p-6 space-y-6">{type === "student" ? <FormStudent /> : type === "lecturer" ? <FormLecturer /> : type === "class" ? <FormClassName /> : type === "course" ? <FormCourse /> : <FormSchedule />}</div>
             </div>
           </div>
         </div>

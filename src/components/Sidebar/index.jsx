@@ -12,11 +12,13 @@ function Sidebar() {
         <FaRegWindowClose id="cancel" className="w-8 dark:text-white text-primary-blue" size={25} />
       </label>
 
-      <div className="sidebar bg-primary-white dark:bg-primary-grey py-3">
-        <a href="https://ft.unsur.ac.id" target="__blank" className="flex items-center pl-2.5 mb-5 pt-10 py-2 border-b-2">
-          <img src={require("../../assets/img/ftLogo.png")} className="h-6 mr-3 sm:h-7" alt="FT Logo" />
-          <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Absensi FTUNSUR</span>
-        </a>
+      <div className="sidebar bg-primary-white dark:bg-primary-grey py-14">
+        <div className="w-full flex flex-row items-center justify-center">
+          <a href="https://ft.unsur.ac.id" target="__blank" className="flex py-5 border-b-2">
+            <img src={require("../../assets/img/ftLogo.png")} className="lg:h-12 h-6 mr-3 sm:h-7" alt="FT Logo" />
+            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Absensi FTUNSUR</span>
+          </a>
+        </div>
 
         <ul className="flex flex-col gap-y-2 py-3 ">
           <ListMenu />
