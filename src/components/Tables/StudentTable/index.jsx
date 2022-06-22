@@ -14,12 +14,12 @@ import LoadingAnimationXL from "../../Loading/LoadingAnimationXL";
 import ModalDelete from "../../Modal/ModalDelete";
 import LoadingAnimation from "../../Loading/LoadingAnimation";
 import UpdateStudentModal from "../../Modal/ModalUpdate/ModalUpdateStudent";
-import { INSERT_STUDENTS_TO_CLASS } from "../../../api/Model/Mutation/Insert/InsertStudentToClass";
+import { INSERT_STUDENTS_TO_ATTENDANCE } from "../../../api/Model/Mutation/Insert/InsertStudentToAttendance";
 import Swal from "sweetalert2";
 
-function StudentTable({ class_data, type }) {
+function StudentTable({ schedule_data, type }) {
   const id_prodi = useSelector((state) => state.prodi.id);
-  const filter = useSelector((state) => state.filter.value);
+  const filter = useSelector((state) => state.filter.status);
   const search = useSelector((state) => state.search.value);
 
   const [filterCategory, setFilterCategory] = useState(GET_STUDENTS);
@@ -32,13 +32,11 @@ function StudentTable({ class_data, type }) {
   });
 
   const [data, setData] = useState([]);
-  const [classes, setClasses] = useState([]);
-
-  console.log(data);
-  console.log(classes);
+  const [listStudents, setListStudents] = useState([]);
 
   useEffect(() => {
     setData([]);
+    setListStudents([]);
     if (filter === "aktif") {
       setFilterCategory(GET_STUDENTS_AKTIF);
     } else if (filter === "tidak_aktif") {
@@ -48,8 +46,8 @@ function StudentTable({ class_data, type }) {
     }
     !fetchStudents &&
       dataStudents?.students.forEach((student) => {
-        if (type === "insertStudentToClass") {
-          setClasses((classes) => [...classes, { npm: student.npm, fullname: student.fullname, class_id: class_data.id, is_checked: false }]);
+        if (type === "insertStudentToAttendance") {
+          setListStudents((listStudents) => [...listStudents, { npm: student.npm, fullname: student.fullname, class_id: schedule_data.id, is_checked: false }]);
         } else {
           setData((data) => [...data, { npm: student.npm, fullname: student.fullname, is_active: student.is_active, is_checked: false }]);
         }
@@ -58,9 +56,9 @@ function StudentTable({ class_data, type }) {
   }, [filter, dataStudents?.students]);
 
   const handleChange = (e) => {
-    if (type === "insertStudentToClass") {
-      setClasses(
-        [...classes].map((obj) => {
+    if (type === "insertStudentToAttendance") {
+      setListStudents(
+        [...listStudents].map((obj) => {
           if (obj.npm === e.target.value) {
             return {
               ...obj,
@@ -98,10 +96,9 @@ function StudentTable({ class_data, type }) {
     },
   });
 
-  const [insertStudentToClass, { loading: loadingInsert }] = useMutation(INSERT_STUDENTS_TO_CLASS, {
+  const [insertStudentToAttendance, { loading: loadingInsert }] = useMutation(INSERT_STUDENTS_TO_ATTENDANCE, {
     onCompleted: () => {
       setShowModalInsert(false);
-      setClasses([]);
       setFinishInsert(true);
     },
   });
@@ -126,29 +123,28 @@ function StudentTable({ class_data, type }) {
     });
   };
 
-  const handleInsertStudentToClass = () => {
-    data.forEach((classes) => {
-      console.log(classes);
-      if (classes.length === 0) {
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: "Tidak Ada Data",
-          showConfirmButton: false,
-          timer: 1200,
-        });
-      } else {
-        classes.forEach((student) => {
-          if (student.is_checked) {
-            insertStudentToClass({
-              variables: {
-                students: classes,
-              },
-            });
-          }
+  const handleInsertStudentToAttendance = () => {
+    // if (listStudents.length === 0) {
+    //   Swal.fire({
+    //     position: "top-end",
+    //     icon: "error",
+    //     title: "Tidak Ada Data",
+    //     showConfirmButton: false,
+    //     timer: 1200,
+    //   });
+    // }
+    //  else {
+    listStudents.forEach((student) => {
+      if (student.is_checked) {
+        insertStudentToAttendance({
+          variables: {
+            schedules_id: schedule_data.id,
+            npm: student.npm,
+          },
         });
       }
     });
+    // }
   };
 
   return (
@@ -161,7 +157,7 @@ function StudentTable({ class_data, type }) {
                 <button
                   type="button"
                   className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                  onClick={() => (type === "insertStudentToClass" ? setFinishInsert(false) : setFinishDelete(false))}
+                  onClick={() => (type === "insertStudentToAttendance" ? setFinishInsert(false) : setFinishDelete(false))}
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path>
@@ -175,7 +171,7 @@ function StudentTable({ class_data, type }) {
                   <button
                     type="button"
                     className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                    onClick={() => (type === "insertStudentToClass" ? setFinishInsert(false) : setFinishDelete(false))}
+                    onClick={() => (type === "insertStudentToAttendance" ? setFinishInsert(false) : setFinishDelete(false))}
                   >
                     Selesai
                   </button>
@@ -191,7 +187,7 @@ function StudentTable({ class_data, type }) {
             <tr>
               <th scope="col" className="p-4">
                 <div className="flex items-center">
-                  {type !== "insertStudentToClass" && data.filter((d) => d.is_checked === true).length !== 0 ? (
+                  {type !== "insertStudentToAttendance" && data.filter((d) => d.is_checked === true).length !== 0 ? (
                     <button
                       onClick={() => {
                         setShowModal(true);
@@ -211,7 +207,7 @@ function StudentTable({ class_data, type }) {
               <th scope="col" className="px-6 py-3">
                 Nama
               </th>
-              {type !== "insertStudentToClass" && (
+              {type !== "insertStudentToAttendance" && (
                 <>
                   <th scope="col" className="px-6 py-3">
                     Status
@@ -231,9 +227,9 @@ function StudentTable({ class_data, type }) {
                 </td>
               </tr>
             ) : search === "" ? (
-              data.length !== 0 || classes.length !== 0 ? (
-                type === "insertStudentToClass" ? (
-                  classes.map((student) => (
+              data.length !== 0 || listStudents.length !== 0 ? (
+                type === "insertStudentToAttendance" ? (
+                  listStudents.map((student) => (
                     <tr key={student.npm} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
                       <td className="w-4 p-4">
                         <div className="flex items-center">
@@ -292,14 +288,32 @@ function StudentTable({ class_data, type }) {
             ) : dataStudentSearch?.students.length !== 0 ? (
               dataStudentSearch?.students.map((student) => (
                 <tr key={student.npm} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
-                  <td className="w-4 p-4"></td>
+                  <td className="w-4 p-4">
+                    <div className="flex items-center">
+                      <input
+                        defaultChecked={student.is_checked}
+                        value={student.npm}
+                        onChange={handleChange}
+                        id="checkbox-table-search-1"
+                        type="checkbox"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      />
+                      <label htmlFor="checkbox-table-search-1" className="sr-only">
+                        checkbox
+                      </label>
+                    </div>
+                  </td>
                   <td className="px-6 py-4">{student.npm}</td>
                   <td className="px-6 py-4">{student.fullname}</td>
-                  <td className="px-6 py-4">{student.is_active === true ? "Aktif" : "Tidak Aktif"}</td>
-                  <td className="flex flex-row justify-center gap-x-1 pt-2">
-                    <UpdateStudentModal data={student} />
-                    <ModalDelete data={student} />
-                  </td>
+                  {type !== "insertStudentToAttendance" && (
+                    <>
+                      <td className="px-6 py-4">{student.is_active === true ? "Aktif" : "Tidak Aktif"}</td>
+                      <td className="flex flex-row justify-center gap-x-1 pt-2">
+                        <UpdateStudentModal data={student} />
+                        <ModalDelete data={student} />
+                      </td>
+                    </>
+                  )}
                 </tr>
               ))
             ) : (
@@ -312,11 +326,11 @@ function StudentTable({ class_data, type }) {
           </tbody>
         </table>
       </div>
-      {type === "insertStudentToClass" && (
+      {type === "insertStudentToAttendance" && (
         <div className="flex justify-center py-5">
           <button
             type="button"
-            onClick={handleInsertStudentToClass}
+            onClick={handleInsertStudentToAttendance}
             className="text-white bg-gradient-to-r from-primary-blue via-blue-800 to-blue-900 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             data-modal-toggle="large-modal"
           >
@@ -375,10 +389,14 @@ function StudentTable({ class_data, type }) {
                   Anda ingin menambahkan
                   <br />
                   <b>
-                    {classes.filter((c) => c.is_checked === true).length} Mahasiswa ke kelas {class_data.class_name}
+                    {listStudents.filter((c) => c.is_checked === true).length} Mahasiswa ke kelas {schedule_data.class_name}
                   </b>
                 </h3>
-                <button type="button" className="text-white bg-primary-blue hover:bg-secondary-blue focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={handleInsertStudentToClass}>
+                <button
+                  type="button"
+                  className="text-white bg-primary-blue hover:bg-secondary-blue focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+                  onClick={handleInsertStudentToAttendance}
+                >
                   {loadingDelete ? <LoadingAnimation /> : "Tambah"}
                 </button>
                 <button

@@ -5,8 +5,11 @@ import ModalDelete from "../../Modal/ModalDelete/";
 import { useSubscription } from "@apollo/client";
 import LoadingAnimationXL from "../../Loading/LoadingAnimationXL";
 
+import { useSelector } from "react-redux";
+
 function CourseTable() {
-  const { data: dataCourse, loading } = useSubscription(GET_COURSES);
+  const id_prodi = useSelector((state) => state.prodi.id);
+  const { data: dataCourse, loading } = useSubscription(GET_COURSES, { variables: { prodi: id_prodi } });
   return (
     <>
       <div className="relative h-80 overflow-x-auto shadow-md sm:rounded-lg">

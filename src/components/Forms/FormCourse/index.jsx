@@ -5,8 +5,10 @@ import Swal from "sweetalert2";
 import { INSERT_COURSE } from "../../../api/Model/Mutation/Insert/InsertCourse";
 import { MODAL_ADD } from "../../../redux/modalSlice";
 import LoadingAnimation from "../../Loading/LoadingAnimation";
+import { useSelector } from "react-redux";
 
 function FormCourse() {
+  const id_prodi = useSelector((state) => state.prodi.id);
   const dispatch = useDispatch();
   const INITIAL_STATE = {
     course_id: "",
@@ -37,6 +39,7 @@ function FormCourse() {
         course_id: course.course_id,
         course_name: course.course_name,
         sks: course.sks,
+        study_programs_id: id_prodi,
       },
     });
   };

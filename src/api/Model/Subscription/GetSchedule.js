@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_SCHEDULE = gql`
-  subscription GetSchedule {
-    schedules {
+  subscription GetSchedule($prodi: String!) {
+    schedules(where: { class: { study_programs_id: { _eq: $prodi } } }) {
       id
       course {
         course_id
@@ -10,6 +10,10 @@ export const GET_SCHEDULE = gql`
       }
       class {
         class_name
+        study_programs_id
+        study_program {
+          study_program_name
+        }
       }
       lecturer {
         fullname
@@ -17,6 +21,7 @@ export const GET_SCHEDULE = gql`
       day
       room
       time
+      meet_number
     }
   }
 `;

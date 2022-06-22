@@ -7,11 +7,15 @@ import { GET_CLASS_NAMES } from "../../../api/Model/Query/GetClassName";
 import { GET_COURSES } from "../../../api/Model/Query/GetCourses";
 import { GET_LECTURERS } from "../../../api/Model/Query/GetLecturer";
 import LoadingAnimation from "../../Loading/LoadingAnimation";
+import { useDispatch, useSelector } from "react-redux";
+import { MODAL_ADD } from "../../../redux/modalSlice";
 
 function FormSchedule() {
-  const { data: dataClasses, loading: loadingClasses } = useQuery(GET_CLASS_NAMES);
-  const { data: dataCourses, loading: loadingCourses } = useQuery(GET_COURSES);
+  const id_prodi = useSelector((state) => state.prodi.id);
+  const { data: dataClasses, loading: loadingClasses } = useQuery(GET_CLASS_NAMES, { variables: { prodi: id_prodi } });
+  const { data: dataCourses, loading: loadingCourses } = useQuery(GET_COURSES, { variables: { prodi: id_prodi } });
   const { data: dataLecturers, loading: loadingLecturers } = useQuery(GET_LECTURERS);
+  const dispatch = useDispatch();
 
   const INITIAL_STATE = {
     course_id: "",
@@ -40,6 +44,7 @@ function FormSchedule() {
         timer: 1200,
       });
 
+      dispatch(MODAL_ADD(false));
       setSchedule(INITIAL_STATE);
     },
   });
@@ -80,6 +85,7 @@ function FormSchedule() {
           Pilih Mata Kuliah
         </label>
         <input
+          value={schedule.course_id}
           autoComplete="off"
           name="course_id"
           required
@@ -101,6 +107,7 @@ function FormSchedule() {
           Pilih Kelas
         </label>
         <input
+          value={schedule.class_id}
           autoComplete="off"
           name="class_id"
           required
@@ -124,6 +131,7 @@ function FormSchedule() {
         <input
           autoComplete="off"
           required
+          value={schedule.nidn}
           name="nidn"
           type="text"
           list="lecturer"
@@ -148,7 +156,7 @@ function FormSchedule() {
             type="time"
             required
             name="startTime"
-            defaultValue={time.start}
+            value={time.start}
             onChange={(e) => setTime({ ...time, start: e.target.value })}
             className="bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
@@ -158,7 +166,7 @@ function FormSchedule() {
             type="time"
             required
             name="endTime"
-            defaultValue={time.end}
+            value={time.end}
             onChange={(e) => setTime({ ...time, end: e.target.value })}
             className="bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           />
@@ -171,7 +179,7 @@ function FormSchedule() {
             name="time"
             className="block outline-none py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             placeholder=" "
-            defaultValue={schedule.time}
+            value={schedule.time}
             required
           />
         </div>
@@ -189,12 +197,12 @@ function FormSchedule() {
           <option selected disabled value="">
             -- Pilih Hari --
           </option>
-          <option value={"Senin"}>Senin</option>
-          <option value={"Selasa"}>Selasa</option>
-          <option value={"Rabu"}>Rabu</option>
-          <option value={"Kamis"}>Kamis</option>
-          <option value={"Jumat"}>Jumat</option>
-          <option value={"Sabtu"}>Sabtu</option>
+          <option value="Senin">Senin</option>
+          <option value="Selasa">Selasa</option>
+          <option value="Rabu">Rabu</option>
+          <option value="Kamis">Kamis</option>
+          <option value="Jumat">Jumat</option>
+          <option value="Sabtu">Sabtu</option>
         </select>
       </div>
 
@@ -210,14 +218,14 @@ function FormSchedule() {
           <option selected disabled value="">
             -- Pilih Ruangan --
           </option>
-          <option value={"F.T - 1.1"}>F.T - 1.1</option>
-          <option value={"F.T - 1.2"}>F.T - 1.2</option>
-          <option value={"F.T - 1.3"}>F.T - 1.3</option>
-          <option value={"F.T - 1.4"}>F.T - 1.4</option>
-          <option value={"F.T - 2.1"}>F.T - 2.1</option>
-          <option value={"F.T - 2.2"}>F.T - 2.2</option>
-          <option value={"F.T - 2.34"}>F.T - 2.34</option>
-          <option value={"F.T - 3.1"}>F.T - 3.1</option>
+          <option value="F.T - 1.1">F.T - 1.1</option>
+          <option value="F.T - 1.2">F.T - 1.2</option>
+          <option value="F.T - 1.3">F.T - 1.3</option>
+          <option value="F.T - 1.4">F.T - 1.4</option>
+          <option value="F.T - 2.1">F.T - 2.1</option>
+          <option value="F.T - 2.2">F.T - 2.2</option>
+          <option value="F.T - 2.34">F.T - 2.34</option>
+          <option value="F.T - 3.1">F.T - 3.1</option>
         </select>
       </div>
 

@@ -6,7 +6,6 @@ import StudentTable from "../../Tables/StudentTable";
 import SearchBar from "../../SearchBar";
 
 function ModalAddStudentToClass({ data }) {
-  console.log(data);
   const [showModal, setShowModal] = useState(false);
 
   const INITIAL_VALUE = {
@@ -19,7 +18,7 @@ function ModalAddStudentToClass({ data }) {
     <>
       <button
         onClick={() => {
-          setAssignValue({ ...assignValue, id: data.id, class_name: data.class_name });
+          setAssignValue({ ...assignValue, id: data.id, class_name: data.class.class_name });
           setShowModal(true);
         }}
         className="bg-primary-blue text-white hover:bg-secondary-blue p-2 rounded-md"
@@ -48,7 +47,7 @@ function ModalAddStudentToClass({ data }) {
                 <SearchBar />
               </div>
               <div className="px-6">
-                <StudentTable class_data={assignValue} type={"insertStudentToClass"} />
+                <StudentTable schedule_data={assignValue} type={"insertStudentToAttendance"} />
               </div>
             </div>
           </div>

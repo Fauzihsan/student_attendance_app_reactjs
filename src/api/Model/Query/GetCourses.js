@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_COURSES = gql`
-  query GetCourses {
-    courses(order_by: { course_name: asc }) {
+  query GetCourses($prodi: String!) {
+    courses(order_by: { course_name: asc }, where: { study_programs_id: { _eq: $prodi } }) {
       course_id
       course_name
       sks

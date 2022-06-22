@@ -4,9 +4,11 @@ import { GET_CLASS_NAMES } from "../../../api/Model/Subscription/GetClassNames";
 import UpdateClassNameModal from "../../Modal/ModalUpdate/ModalUpdateClassName";
 import LoadingAnimationXL from "../../Loading/LoadingAnimationXL";
 import ModalDelete from "../../Modal/ModalDelete";
+import { useSelector } from "react-redux";
 
 function ClassNameTable() {
-  const { data, loading } = useSubscription(GET_CLASS_NAMES);
+  const id_prodi = useSelector((state) => state.prodi.id);
+  const { data, loading } = useSubscription(GET_CLASS_NAMES, { variables: { prodi: id_prodi } });
   let no = 1;
 
   return (
