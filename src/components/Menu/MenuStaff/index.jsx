@@ -46,7 +46,7 @@ function MenuStaff() {
       <Link to="/admin/penjadwalan" className="hover:bg-primary-blue hover:text-primary-white p-3 dark:text-white text-primary-grey hover:no-underline">
         <div className="side-menu flex flex-row items-center">
           <AiOutlineSchedule size={20} className="mr-4" />
-          Penjadwalan
+          Penjadwalan & Absensi
         </div>
       </Link>
     </>

@@ -81,7 +81,7 @@ function ModalUpdateLecturer({ data }) {
   return (
     <>
       <button
-        className="bg-secondary-blue text-white hover:bg-primary-blue p-2 rounded-md"
+        className="bg-secondary-yellow text-white hover:bg-yellow-500 p-2 rounded-md"
         onClick={() => {
           setShowModal(true);
           setLecturerUpdate(INITIAL_STATE);

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { GET_ATTENDANCES_ALL } from "../../../api/Model/Subscription/GetAttendances";
 import LoadingAnimationXL from "../../Loading/LoadingAnimationXL";
-import { Dropdown } from "flowbite-react";
 import {
   UPDATE_ATTENDANCE_P1,
   UPDATE_ATTENDANCE_P10,
@@ -20,7 +19,6 @@ import {
   UPDATE_ATTENDANCE_P8,
   UPDATE_ATTENDANCE_P9,
 } from "../../../api/Model/Mutation/Update/UpdateAttendance";
-import LoadingAnimation from "../../Loading/LoadingAnimation";
 
 function AttendanceTable({ schedule_data }) {
   const meeting = useSelector((state) => state.filter.meet_number);
@@ -30,8 +28,6 @@ function AttendanceTable({ schedule_data }) {
   const [meetNumber, setMeetNumber] = useState(UPDATE_ATTENDANCE_P1);
   const [updatePresent, { loading: loadingPresent }] = useMutation(meetNumber);
   const [updateAbsent, { loading: loadingAbsent }] = useMutation(meetNumber);
-
-  console.log(meeting);
 
   useEffect(() => {
     setAttendances([]);
@@ -59,7 +55,7 @@ function AttendanceTable({ schedule_data }) {
           },
         ]);
       });
-  }, [data]);
+  }, [data, loading]);
 
   useEffect(() => {
     if (meeting === "1") {
@@ -109,7 +105,6 @@ function AttendanceTable({ schedule_data }) {
       },
     });
   };
-  const [showChoice, setShowChoice] = useState(false);
 
   return (
     <div className="relative h-96 overflow-x-auto shadow-md sm:rounded-lg">
@@ -142,185 +137,255 @@ function AttendanceTable({ schedule_data }) {
                 <td className="px-6 py-4">{attendance.fullname}</td>
                 {meeting === "1" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p1 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p1 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p1 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p1 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : meeting === "2" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p2 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p2 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p2 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p2 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : meeting === "3" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p3 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p3 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p3 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p3 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : meeting === "4" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p4 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p4 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p4 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p4 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : meeting === "5" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p5 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p5 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p5 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p5 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : meeting === "6" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p6 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p6 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p6 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p6 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : meeting === "7" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p7 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p7 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p7 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p7 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : meeting === "8" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p8 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p8 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p8 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p8 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : meeting === "9" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p9 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p9 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p9 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p9 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : meeting === "10" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p10 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p10 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p10 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p10 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : meeting === "11" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p11 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p11 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p11 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p11 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : meeting === "12" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p12 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p12 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p12 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p12 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : meeting === "13" ? (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p13 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p13 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p13 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p13 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 ) : (
                   <td className="px-6 py-4 flex justify-center text-white">
-                    <Dropdown
-                      label={<div>{attendance.p14 === -1 ? <span className="bg-secondary-red p-2 rounded-md">Belum Diabsen</span> : attendance.p14 === 0 ? <span className="bg-secondary-yellow p-2 rounded-md">Tidak Hadir</span> : <span className="bg-secondary-blue p-2 rounded-md">Hadir</span>}</div>}
-                      arrowIcon={false}
-                      inline={true}
-                    >
-                      <div>
-                        <Dropdown.Item onClick={() => handlePresent(attendance.npm)}>{loadingPresent ? <LoadingAnimation /> : "Hadir"}</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleAbsent(attendance.npm)}>{loadingAbsent ? <LoadingAnimation /> : "Tidak Hadir"}</Dropdown.Item>
-                      </div>
-                    </Dropdown>
+                    <div>
+                      {attendance.p14 === -1 ? (
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Belum Diabsen
+                        </button>
+                      ) : attendance.p14 === 0 ? (
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
+                          Tidak Hadir
+                        </button>
+                      ) : (
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
+                          Hadir
+                        </button>
+                      )}
+                    </div>
                   </td>
                 )}
               </tr>

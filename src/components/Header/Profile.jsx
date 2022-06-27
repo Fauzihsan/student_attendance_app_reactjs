@@ -39,8 +39,8 @@ function Profile() {
       {data?.users.map((u) => (
         <div key={u.id}>
           <Dropdown.Header>
-            <span className="block text-xs">{u.role.name}</span>
-            <span className="block truncate text-sm font-medium">{u.fullname}</span>
+            <span className="block text-xs z-50">{u.role.name}</span>
+            <span className="block truncate text-sm font-medium z-50">{u.fullname}</span>
           </Dropdown.Header>
           <Link to="/akun">
             <Dropdown.Item>Settings</Dropdown.Item>

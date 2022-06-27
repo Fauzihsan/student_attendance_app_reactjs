@@ -9,6 +9,7 @@ import LoadingAnimation from "../../Loading/LoadingAnimation";
 import { DELETE_LECTURER } from "../../../api/Model/Mutation/Delete/DeleteLecturer";
 import { DELETE_CLASS_NAME } from "../../../api/Model/Mutation/Delete/DeleteClassName";
 import { DELETE_COURSE } from "../../../api/Model/Mutation/Delete/DeleteCourse";
+import { DELETE_SCHEDULE } from "../../../api/Model/Mutation/Delete/DeleteSchedule";
 
 function ModalDelete({ data, type }) {
   const [showModal, setShowModal] = useState(false);
@@ -17,6 +18,7 @@ function ModalDelete({ data, type }) {
   const [lecturerDelete, setLecturerDelete] = useState({ nidn: "", fullname: "" });
   const [classNameDelete, setClassNameDelete] = useState({ id: "", class_name: "" });
   const [courseDelete, setCourseDelete] = useState({ course_id: "", course_name: "" });
+  const [scheduleDelete, setScheduleDelete] = useState({ id: "", class_name: "", course_name: "" });
 
   const [deleteStudent, { loading: loadingDeleteStudent }] = useMutation(DELETE_STUDENT, {
     onCompleted: () => {
@@ -58,7 +60,7 @@ function ModalDelete({ data, type }) {
       });
 
       setShowModal(false);
-      setLecturerDelete("");
+      setClassNameDelete("");
     },
   });
   const [deleteCourse, { loading: loadingDeleteCourse }] = useMutation(DELETE_COURSE, {
@@ -72,7 +74,21 @@ function ModalDelete({ data, type }) {
       });
 
       setShowModal(false);
-      setLecturerDelete("");
+      setCourseDelete("");
+    },
+  });
+  const [deleteSchedule, { loading: loadingDeleteSchedule }] = useMutation(DELETE_SCHEDULE, {
+    onCompleted: () => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Jadwal & Absensi Berhasil Dihapus",
+        showConfirmButton: false,
+        timer: 1200,
+      });
+
+      setShowModal(false);
+      setScheduleDelete("");
     },
   });
 
@@ -113,6 +129,12 @@ function ModalDelete({ data, type }) {
           course_id: courseDelete.course_id,
         },
       });
+    } else if (type === "schedule") {
+      deleteSchedule({
+        variables: {
+          id: scheduleDelete.id,
+        },
+      });
     }
   };
 
@@ -126,6 +148,8 @@ function ModalDelete({ data, type }) {
       setClassNameDelete({ ...classNameDelete, id: data.id, class_name: data.class_name });
     } else if (type === "course") {
       setCourseDelete({ ...courseDelete, course_id: data.course_id, course_name: data.course_name });
+    } else if (type === "schedule") {
+      setScheduleDelete({ ...scheduleDelete, id: data.id, class_name: data.class.class_name, course_name: data.course.course_name });
     }
   };
   return (
@@ -158,13 +182,20 @@ function ModalDelete({ data, type }) {
                   <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                     Anda yakin ingin menghapus Kelas <br /> <b>{classNameDelete.class_name}</b>
                   </h3>
-                ) : (
+                ) : type === "course" ? (
                   <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                     Anda yakin ingin menghapus Mata Kuliah <br /> <b>{courseDelete.course_name}</b>
                   </h3>
+                ) : (
+                  <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                    Anda yakin ingin menghapus Jadwal & Absensi untuk Kelas <br />{" "}
+                    <b>
+                      {scheduleDelete.class_name} - {scheduleDelete.course_name}
+                    </b>
+                  </h3>
                 )}
                 <button type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2" onClick={handleDelete}>
-                  {loadingDeleteStudent || loadingDeleteLecturer || loadingDeleteClassName || loadingDeleteCourse ? <LoadingAnimation /> : "Hapus"}
+                  {loadingDeleteStudent || loadingDeleteLecturer || loadingDeleteClassName || loadingDeleteCourse || loadingDeleteSchedule ? <LoadingAnimation /> : "Hapus"}
                 </button>
                 <button
                   type="button"

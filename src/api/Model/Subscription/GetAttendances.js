@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_ATTENDANCES_ALL = gql`
   subscription GetAttendancesAll($schedules_id: Int!) {
-    attendances(where: { schedules_id: { _eq: $schedules_id } }) {
+    attendances(where: { schedules_id: { _eq: $schedules_id } }, order_by: { npm: asc }) {
       student {
         npm
         fullname

@@ -81,11 +81,11 @@ function FormSchedule() {
   ) : (
     <form onSubmit={handleInput}>
       <div className="relative z-0 w-full mb-6 group">
-        <label htmlFor="" className="text-primary-grey dark:text-white text-sm">
+        {/* <label htmlFor="" className="text-primary-grey dark:text-white text-sm">
           Pilih Mata Kuliah
         </label>
         <input
-          value={schedule.course_id}
+          data-value={schedule.course_id}
           autoComplete="off"
           name="course_id"
           required
@@ -96,55 +96,63 @@ function FormSchedule() {
         />
         <datalist id="courses" className="w-full">
           {dataCourses?.courses.map((d) => (
-            <option key={d.course_id} value={d.course_id}>
+            <option key={d.course_id} data-value={d.course_id}>
               {d.course_name}
             </option>
           ))}
-        </datalist>
-      </div>
-      <div className="relative z-0 w-full mb-6 group">
-        <label htmlFor="" className="text-primary-grey dark:text-white text-sm">
-          Pilih Kelas
-        </label>
-        <input
-          value={schedule.class_id}
-          autoComplete="off"
-          name="class_id"
+        </datalist> */}
+        <select
           required
-          type="text"
-          list="classes"
+          value={schedule.course_id}
+          name="course_id"
           onChange={handleOnChange}
           className="bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-        <datalist id="classes">
+        >
+          <option value={""} disabled>
+            Pilih Mata Kuliah
+          </option>
+          {dataCourses?.courses.map((d) => (
+            <option key={d.course_id} value={d.course_id}>
+              {d.course_id} - {d.course_name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="relative z-0 w-full mb-6 group">
+        <select
+          required
+          value={schedule.class_id}
+          name="class_id"
+          onChange={handleOnChange}
+          className="bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option value={""} disabled>
+            Pilih Kelas
+          </option>
           {dataClasses?.class.map((d) => (
             <option key={d.id} value={d.id}>
               {d.class_name}
             </option>
           ))}
-        </datalist>
+        </select>
       </div>
       <div className="relative z-0 w-full mb-6 group">
-        <label htmlFor="" className="text-primary-grey dark:text-white text-sm">
-          Pilih Dosen Pengampu
-        </label>
-        <input
-          autoComplete="off"
+        <select
           required
           value={schedule.nidn}
           name="nidn"
-          type="text"
-          list="lecturer"
           onChange={handleOnChange}
           className="bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-        <datalist id="lecturer">
+        >
+          <option value={""} disabled>
+            Pilih Dosen Pengampu
+          </option>
           {dataLecturers?.lecturers.map((d) => (
             <option key={d.nidn} value={d.nidn}>
               {d.fullname}
             </option>
           ))}
-        </datalist>
+        </select>
       </div>
       <div className="relative z-0 w-full mb-6 group">
         <label htmlFor="" className="text-primary-grey dark:text-white text-sm">
@@ -178,8 +186,7 @@ function FormSchedule() {
             type="text"
             name="time"
             className="block outline-none py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-            value={schedule.time}
+            defaultValue={schedule.time}
             required
           />
         </div>
@@ -194,7 +201,7 @@ function FormSchedule() {
           onChange={handleOnChange}
           className="bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option selected disabled value="">
+          <option disabled value="">
             -- Pilih Hari --
           </option>
           <option value="Senin">Senin</option>
@@ -215,7 +222,7 @@ function FormSchedule() {
           onChange={handleOnChange}
           className="bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option selected disabled value="">
+          <option disabled value="">
             -- Pilih Ruangan --
           </option>
           <option value="F.T - 1.1">F.T - 1.1</option>

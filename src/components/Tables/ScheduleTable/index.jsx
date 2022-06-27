@@ -1,12 +1,12 @@
 import React from "react";
 import { useSubscription } from "@apollo/client";
 import { useSelector } from "react-redux";
-import UpdateClassNameModal from "../../Modal/ModalUpdate/ModalUpdateClassName";
 import LoadingAnimationXL from "../../Loading/LoadingAnimationXL";
 import ModalDelete from "../../Modal/ModalDelete";
 import ModalAddStudentToClass from "../../Modal/ModalAddStudentToAttendance";
 import ModalDetailClass from "../../Modal/ModalDetailClass";
 import { GET_SCHEDULE } from "../../../api/Model/Subscription/GetSchedule";
+import ModalUpdateSchedule from "../../Modal/ModalUpdate/ModalUpdateSchedule";
 
 function ScheduleTable() {
   const id_prodi = useSelector((state) => state.prodi.id);
@@ -77,8 +77,8 @@ function ScheduleTable() {
                   <td className="flex flex-row justify-center gap-x-1 pt-2">
                     <ModalDetailClass data={d} />
                     <ModalAddStudentToClass data={d} />
-                    <UpdateClassNameModal data={d} />
-                    <ModalDelete data={d} type={"class"} />
+                    <ModalUpdateSchedule data={d} />
+                    <ModalDelete data={d} type={"schedule"} />
                   </td>
                 </tr>
               ))

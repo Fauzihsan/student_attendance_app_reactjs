@@ -181,151 +181,151 @@ function StudentTable({ schedule_data, type }) {
           </div>
         ))}
 
-      <div className="relative h-80 overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead className="text-xs sticky top-0 text-gray-700 uppercase bg-primary-white2 dark:bg-primary-black dark:text-gray-400">
-            <tr>
-              <th scope="col" className="p-4">
-                <div className="flex items-center">
-                  {type !== "insertStudentToAttendance" && data.filter((d) => d.is_checked === true).length !== 0 ? (
-                    <button
-                      onClick={() => {
-                        setShowModal(true);
-                      }}
-                      className="text-red-600"
-                    >
-                      <AiOutlineDelete size={20} />
-                    </button>
-                  ) : (
-                    []
-                  )}
-                </div>
-              </th>
-              <th scope="col" className="px-6 py-3">
-                NPM
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Nama
-              </th>
-              {type !== "insertStudentToAttendance" && (
-                <>
-                  <th scope="col" className="px-6 py-3">
-                    Status
-                  </th>
-                  <th scope="col" className="px-6 py-3 text-center">
-                    Aksi
-                  </th>
-                </>
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {fetchStudents || fetchSearch ? (
+        <div className="relative h-80 overflow-x-auto shadow-md sm:rounded-lg">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs sticky top-0 text-gray-700 uppercase bg-primary-white2 dark:bg-primary-black dark:text-gray-400">
               <tr>
-                <td colSpan={6} rowSpan={6}>
-                  <LoadingAnimationXL />
-                </td>
+                <th scope="col" className="p-4">
+                  <div className="flex items-center">
+                    {type !== "insertStudentToAttendance" && data.filter((d) => d.is_checked === true).length !== 0 ? (
+                      <button
+                        onClick={() => {
+                          setShowModal(true);
+                        }}
+                        className="text-red-600"
+                      >
+                        <AiOutlineDelete size={20} />
+                      </button>
+                    ) : (
+                      []
+                    )}
+                  </div>
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  NPM
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Nama
+                </th>
+                {type !== "insertStudentToAttendance" && (
+                  <>
+                    <th scope="col" className="px-6 py-3">
+                      Status
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-center">
+                      Aksi
+                    </th>
+                  </>
+                )}
               </tr>
-            ) : search === "" ? (
-              data.length !== 0 || listStudents.length !== 0 ? (
-                type === "insertStudentToAttendance" ? (
-                  listStudents.map((student) => (
-                    <tr key={student.npm} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
-                      <td className="w-4 p-4">
-                        <div className="flex items-center">
-                          <input
-                            defaultChecked={student.is_checked}
-                            value={student.npm}
-                            onChange={handleChange}
-                            id="checkbox-table-search-1"
-                            type="checkbox"
-                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label htmlFor="checkbox-table-search-1" className="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">{student.npm}</td>
-                      <td className="px-6 py-4">{student.fullname}</td>
-                    </tr>
-                  ))
+            </thead>
+            <tbody>
+              {fetchStudents || fetchSearch ? (
+                <tr>
+                  <td colSpan={6} rowSpan={6}>
+                    <LoadingAnimationXL />
+                  </td>
+                </tr>
+              ) : search === "" ? (
+                data.length !== 0 || listStudents.length !== 0 ? (
+                  type === "insertStudentToAttendance" ? (
+                    listStudents.map((student) => (
+                      <tr key={student.npm} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
+                        <td className="w-4 p-4">
+                          <div className="flex items-center">
+                            <input
+                              defaultChecked={student.is_checked}
+                              value={student.npm}
+                              onChange={handleChange}
+                              id="checkbox-table-search-1"
+                              type="checkbox"
+                              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            />
+                            <label htmlFor="checkbox-table-search-1" className="sr-only">
+                              checkbox
+                            </label>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">{student.npm}</td>
+                        <td className="px-6 py-4">{student.fullname}</td>
+                      </tr>
+                    ))
+                  ) : (
+                    data.map((student) => (
+                      <tr key={student.npm} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
+                        <td className="w-4 p-4">
+                          <div className="flex items-center">
+                            <input
+                              defaultChecked={student.is_checked}
+                              value={student.npm}
+                              onChange={handleChange}
+                              id="checkbox-table-search-1"
+                              type="checkbox"
+                              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            />
+                            <label htmlFor="checkbox-table-search-1" className="sr-only">
+                              checkbox
+                            </label>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">{student.npm}</td>
+                        <td className="px-6 py-4">{student.fullname}</td>
+                        <td className="px-6 py-4">{student.is_active === true ? "Aktif" : "Tidak Aktif"}</td>
+                        <td className="flex flex-row justify-center gap-x-1 pt-2">
+                          <UpdateStudentModal data={student} />
+                          <ModalDelete data={student} type={"student"} />
+                        </td>
+                      </tr>
+                    ))
+                  )
                 ) : (
-                  data.map((student) => (
-                    <tr key={student.npm} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
-                      <td className="w-4 p-4">
-                        <div className="flex items-center">
-                          <input
-                            defaultChecked={student.is_checked}
-                            value={student.npm}
-                            onChange={handleChange}
-                            id="checkbox-table-search-1"
-                            type="checkbox"
-                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                          />
-                          <label htmlFor="checkbox-table-search-1" className="sr-only">
-                            checkbox
-                          </label>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">{student.npm}</td>
-                      <td className="px-6 py-4">{student.fullname}</td>
-                      <td className="px-6 py-4">{student.is_active === true ? "Aktif" : "Tidak Aktif"}</td>
-                      <td className="flex flex-row justify-center gap-x-1 pt-2">
-                        <UpdateStudentModal data={student} />
-                        <ModalDelete data={student} type={"student"} />
-                      </td>
-                    </tr>
-                  ))
+                  <tr>
+                    <td colSpan={6}>
+                      <p className="text-center py-3">Data Mahasiswa Kosong</p>
+                    </td>
+                  </tr>
                 )
+              ) : dataStudentSearch?.students.length !== 0 ? (
+                dataStudentSearch?.students.map((student) => (
+                  <tr key={student.npm} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
+                    <td className="w-4 p-4">
+                      <div className="flex items-center">
+                        <input
+                          defaultChecked={student.is_checked}
+                          value={student.npm}
+                          onChange={handleChange}
+                          id="checkbox-table-search-1"
+                          type="checkbox"
+                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        />
+                        <label htmlFor="checkbox-table-search-1" className="sr-only">
+                          checkbox
+                        </label>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">{student.npm}</td>
+                    <td className="px-6 py-4">{student.fullname}</td>
+                    {type !== "insertStudentToAttendance" && (
+                      <>
+                        <td className="px-6 py-4">{student.is_active === true ? "Aktif" : "Tidak Aktif"}</td>
+                        <td className="flex flex-row justify-center gap-x-1 pt-2">
+                          <UpdateStudentModal data={student} />
+                          <ModalDelete data={student} />
+                        </td>
+                      </>
+                    )}
+                  </tr>
+                ))
               ) : (
                 <tr>
                   <td colSpan={6}>
-                    <p className="text-center py-3">Data Mahasiswa Kosong</p>
+                    <p className="text-center py-3">NPM TIDAK DITEMUKAN</p>
                   </td>
                 </tr>
-              )
-            ) : dataStudentSearch?.students.length !== 0 ? (
-              dataStudentSearch?.students.map((student) => (
-                <tr key={student.npm} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
-                  <td className="w-4 p-4">
-                    <div className="flex items-center">
-                      <input
-                        defaultChecked={student.is_checked}
-                        value={student.npm}
-                        onChange={handleChange}
-                        id="checkbox-table-search-1"
-                        type="checkbox"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
-                      <label htmlFor="checkbox-table-search-1" className="sr-only">
-                        checkbox
-                      </label>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">{student.npm}</td>
-                  <td className="px-6 py-4">{student.fullname}</td>
-                  {type !== "insertStudentToAttendance" && (
-                    <>
-                      <td className="px-6 py-4">{student.is_active === true ? "Aktif" : "Tidak Aktif"}</td>
-                      <td className="flex flex-row justify-center gap-x-1 pt-2">
-                        <UpdateStudentModal data={student} />
-                        <ModalDelete data={student} />
-                      </td>
-                    </>
-                  )}
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={6}>
-                  <p className="text-center py-3">NPM TIDAK DITEMUKAN</p>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+              )}
+            </tbody>
+          </table>
+        </div>
       {type === "insertStudentToAttendance" && (
         <div className="flex justify-center py-5">
           <button

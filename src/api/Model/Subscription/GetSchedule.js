@@ -9,6 +9,7 @@ export const GET_SCHEDULE = gql`
         course_name
       }
       class {
+        id
         class_name
         study_programs_id
         study_program {
@@ -16,6 +17,7 @@ export const GET_SCHEDULE = gql`
         }
       }
       lecturer {
+        nidn
         fullname
       }
       day
