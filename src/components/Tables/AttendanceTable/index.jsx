@@ -122,7 +122,7 @@ function AttendanceTable({ schedule_data }) {
               Nama
             </th>
 
-            <th scope="col" className="px-6 py-3 text-center">
+            <th scope="col" className="px-6 w-1/4 py-3 text-center">
               Status
             </th>
           </tr>
@@ -139,8 +139,8 @@ function AttendanceTable({ schedule_data }) {
               <tr key={attendance.npm} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
                 <td className="px-6 py-4">{attendance.npm}</td>
                 <td className="px-6 py-4">{attendance.fullname}</td>
-                {meeting === "1" ? (
-                  <td className="px-6 py-4 w-full flex justify-center text-white">
+                <td className="px-6 py-4 w-full flex justify-center text-white">
+                  {meeting === "1" ? (
                     <div>
                       {attendance.p1 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -156,9 +156,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : meeting === "2" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : meeting === "2" ? (
                     <div>
                       {attendance.p2 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -174,9 +172,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : meeting === "3" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : meeting === "3" ? (
                     <div>
                       {attendance.p3 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -192,9 +188,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : meeting === "4" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : meeting === "4" ? (
                     <div>
                       {attendance.p4 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -210,9 +204,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : meeting === "5" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : meeting === "5" ? (
                     <div>
                       {attendance.p5 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -228,9 +220,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : meeting === "6" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : meeting === "6" ? (
                     <div>
                       {attendance.p6 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -246,9 +236,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : meeting === "7" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : meeting === "7" ? (
                     <div>
                       {attendance.p7 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -264,9 +252,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : meeting === "8" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : meeting === "8" ? (
                     <div>
                       {attendance.p8 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -282,9 +268,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : meeting === "9" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : meeting === "9" ? (
                     <div>
                       {attendance.p9 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -300,9 +284,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : meeting === "10" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : meeting === "10" ? (
                     <div>
                       {attendance.p10 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -318,9 +300,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : meeting === "11" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : meeting === "11" ? (
                     <div>
                       {attendance.p11 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -336,9 +316,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : meeting === "12" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : meeting === "12" ? (
                     <div>
                       {attendance.p12 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -354,9 +332,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : meeting === "13" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : meeting === "13" ? (
                     <div>
                       {attendance.p13 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -372,9 +348,7 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                ) : (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  ) : (
                     <div>
                       {attendance.p14 === -1 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
@@ -390,8 +364,8 @@ function AttendanceTable({ schedule_data }) {
                         </button>
                       )}
                     </div>
-                  </td>
-                )}
+                  )}
+                </td>
               </tr>
             ))
           ) : (
