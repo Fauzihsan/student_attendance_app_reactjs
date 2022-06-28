@@ -6,7 +6,7 @@ import { FILTER_MEET_NUMBER } from "../../../redux/filterSlice";
 import FilterMeetNumber from "../../FilterMeetNumber";
 import AttendanceTable from "../../Tables/AttendanceTable";
 
-function ModalAttendance({ data }) {
+function ModalAttendance({ data, role }) {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
 
@@ -18,15 +18,30 @@ function ModalAttendance({ data }) {
   const [assignValue, setAssignValue] = useState(INITIAL_VALUE);
   return (
     <>
-      <button
-        onClick={() => {
-          setAssignValue({ ...assignValue, id: data.id, class_name: data.class.class_name, course_name: data.course.course_name });
-          setShowModal(true);
-        }}
-        className="bg-primary-blue text-white hover:bg-secondary-blue p-2 rounded-md"
-      >
-        <AiOutlineGroup size={25} />
-      </button>
+      {role === "lecturer" ? (
+        <button
+          onClick={() => {
+            setAssignValue({ ...assignValue, id: data.id, class_name: data.class.class_name, course_name: data.course.course_name });
+            setShowModal(true);
+          }}
+          className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-primary-blue rounded-lg hover:bg-secondary-blue focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary-blue dark:hover:bg-secondary-blue dark:focus:ring-blue-800"
+        >
+          Absen
+          <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+          </svg>
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            setAssignValue({ ...assignValue, id: data.id, class_name: data.class.class_name, course_name: data.course.course_name });
+            setShowModal(true);
+          }}
+          className="bg-primary-blue text-white hover:bg-secondary-blue p-2 rounded-md"
+        >
+          <AiOutlineGroup size={25} />
+        </button>
+      )}
       {showModal && (
         <div id="modalAddStudenttoClass" tabIndex="-1" className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
           <div className="relative p-4 mx-auto w-full max-w-6xl h-full md:h-auto">

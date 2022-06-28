@@ -1,20 +1,20 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useSubscription } from "@apollo/client";
 import React from "react";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { INSERT_SCHEDULE } from "../../../api/Model/Mutation/Insert/insertSchedule";
-import { GET_CLASS_NAMES } from "../../../api/Model/Query/GetClassName";
-import { GET_COURSES } from "../../../api/Model/Query/GetCourses";
-import { GET_LECTURERS } from "../../../api/Model/Query/GetLecturer";
+import { GET_COURSES } from "../../../api/Model/Subscription/GetCourses";
 import LoadingAnimation from "../../Loading/LoadingAnimation";
 import { useDispatch, useSelector } from "react-redux";
 import { MODAL_ADD } from "../../../redux/modalSlice";
+import { GET_CLASS_NAMES } from "../../../api/Model/Subscription/GetClassNames";
+import { GET_LECTURERS } from "../../../api/Model/Subscription/GetLecturers";
 
 function FormSchedule() {
   const id_prodi = useSelector((state) => state.prodi.id);
-  const { data: dataClasses, loading: loadingClasses } = useQuery(GET_CLASS_NAMES, { variables: { prodi: id_prodi } });
-  const { data: dataCourses, loading: loadingCourses } = useQuery(GET_COURSES, { variables: { prodi: id_prodi } });
-  const { data: dataLecturers, loading: loadingLecturers } = useQuery(GET_LECTURERS);
+  const { data: dataClasses, loading: loadingClasses } = useSubscription(GET_CLASS_NAMES, { variables: { prodi: id_prodi } });
+  const { data: dataCourses, loading: loadingCourses } = useSubscription(GET_COURSES, { variables: { prodi: id_prodi } });
+  const { data: dataLecturers, loading: loadingLecturers } = useSubscription(GET_LECTURERS);
   const dispatch = useDispatch();
 
   const INITIAL_STATE = {

@@ -7,6 +7,7 @@ import Header from "../../../components/Header";
 import Sidebar from "../../../components/Sidebar";
 import { AUTH } from "../../../utils/helpers/AuthCookies";
 import LoadingAnimationXL from "../../../components/Loading/LoadingAnimationXL";
+import ModalAttendance from "../../../components/Modal/ModalAttendance";
 
 function Absensi() {
   const [nidn, setNidn] = useState("");
@@ -38,23 +39,15 @@ function Absensi() {
               <LoadingAnimationXL />
             ) : (
               data?.schedules.map((d) => (
-                <div key={d.id} className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                <div key={d.id} className="p-6 lg:w-1/3 w-3/4 h-60 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                   <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {d.class.class_name} -- {d.course.course_name}
+                    {d.class.class_name} <br /> {d.course.course_name}
                   </h5>
-                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    {d.day} - {d.time} - {d.room}
+                  <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">
+                    {d.room} , {d.day} / {d.time}
                   </p>
-                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Jumlah Pertemuan : {d.meet_number}</p>
-                  <button
-                    onClick={() => {}}
-                    className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-primary-blue rounded-lg hover:bg-secondary-blue focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary-blue dark:hover:bg-secondary-blue dark:focus:ring-blue-800"
-                  >
-                    Absen
-                    <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
-                    </svg>
-                  </button>
+                  <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">Jumlah Pertemuan : {d.meet_number}</p>
+                  <ModalAttendance data={d} role={"lecturer"} />
                 </div>
               ))
             )}
