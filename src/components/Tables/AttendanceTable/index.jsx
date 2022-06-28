@@ -19,6 +19,7 @@ import {
   UPDATE_ATTENDANCE_P8,
   UPDATE_ATTENDANCE_P9,
 } from "../../../api/Model/Mutation/Update/UpdateAttendance";
+import LoadingAnimation from "../../Loading/LoadingAnimation";
 
 function AttendanceTable({ schedule_data }) {
   const meeting = useSelector((state) => state.filter.meet_number);
@@ -57,6 +58,9 @@ function AttendanceTable({ schedule_data }) {
       });
   }, [data, loading]);
 
+  console.log(attendances);
+  // console.log(meeting);
+
   useEffect(() => {
     if (meeting === "1") {
       setMeetNumber(UPDATE_ATTENDANCE_P1);
@@ -89,21 +93,25 @@ function AttendanceTable({ schedule_data }) {
     }
   }, [meeting]);
 
-  const handlePresent = (npm) => {
+  const [attendanceIndex, setAttendanceIndex] = useState("");
+
+  const handlePresent = (npm, index) => {
     updatePresent({
       variables: {
         status: 1,
         npm,
       },
     });
+    setAttendanceIndex(index);
   };
-  const handleAbsent = (npm) => {
+  const handleAbsent = (npm, index) => {
     updateAbsent({
       variables: {
         status: 0,
         npm,
       },
     });
+    setAttendanceIndex(index);
   };
 
   return (
@@ -131,24 +139,24 @@ function AttendanceTable({ schedule_data }) {
               </td>
             </tr>
           ) : attendances.length !== 0 ? (
-            attendances.map((attendance) => (
+            attendances.map((attendance, index) => (
               <tr key={attendance.npm} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
                 <td className="px-6 py-4">{attendance.npm}</td>
                 <td className="px-6 py-4">{attendance.fullname}</td>
                 {meeting === "1" ? (
-                  <td className="px-6 py-4 flex justify-center text-white">
+                  <td className="px-6 py-4 w-full flex justify-center text-white">
                     <div>
                       {attendance.p1 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p1 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -157,16 +165,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p2 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p2 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -175,16 +183,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p3 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p3 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -193,16 +201,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p4 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p4 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -211,16 +219,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p5 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p5 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -229,16 +237,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p6 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p6 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -247,16 +255,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p7 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p7 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -265,16 +273,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p8 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p8 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -283,16 +291,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p9 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p9 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -301,16 +309,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p10 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p10 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -319,16 +327,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p11 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p11 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -337,16 +345,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p12 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p12 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -355,16 +363,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p13 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p13 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
@@ -373,16 +381,16 @@ function AttendanceTable({ schedule_data }) {
                   <td className="px-6 py-4 flex justify-center text-white">
                     <div>
                       {attendance.p14 === -1 ? (
-                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Belum Diabsen
+                        <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
                         </button>
                       ) : attendance.p14 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm)} disabled={loadingPresent && true}>
-                          Tidak Hadir
+                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
+                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
-                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm)} disabled={loadingAbsent && true}>
-                          Hadir
+                        <button className="bg-secondary-blue p-2 rounded-md" onClick={() => handleAbsent(attendance.npm, index)}>
+                          {loadingAbsent && attendanceIndex === index ? <LoadingAnimation /> : "Hadir"}
                         </button>
                       )}
                     </div>
