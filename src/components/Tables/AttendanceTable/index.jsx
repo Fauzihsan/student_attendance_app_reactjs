@@ -25,6 +25,7 @@ function AttendanceTable({ schedule_data }) {
   const meeting = useSelector((state) => state.filter.meet_number);
   const { data, loading } = useSubscription(GET_ATTENDANCES_ALL, { variables: { schedules_id: schedule_data.id } });
   const [attendances, setAttendances] = useState([]);
+  const [attendanceIndex, setAttendanceIndex] = useState("");
 
   const [meetNumber, setMeetNumber] = useState(UPDATE_ATTENDANCE_P1);
   const [updatePresent, { loading: loadingPresent }] = useMutation(meetNumber);
@@ -58,9 +59,6 @@ function AttendanceTable({ schedule_data }) {
       });
   }, [data, loading]);
 
-  console.log(attendances);
-  // console.log(meeting);
-
   useEffect(() => {
     if (meeting === "1") {
       setMeetNumber(UPDATE_ATTENDANCE_P1);
@@ -92,8 +90,6 @@ function AttendanceTable({ schedule_data }) {
       setMeetNumber(UPDATE_ATTENDANCE_P14);
     }
   }, [meeting]);
-
-  const [attendanceIndex, setAttendanceIndex] = useState("");
 
   const handlePresent = (npm, index) => {
     updatePresent({

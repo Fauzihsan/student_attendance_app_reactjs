@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const filterSlice = createSlice({
   name: "filter",
   initialState: {
-    status: "",
+    status: "all",
     meet_number: "1",
   },
   reducers: {

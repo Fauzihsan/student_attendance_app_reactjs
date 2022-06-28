@@ -9,16 +9,10 @@ import UpdateLecturerModal from "../../Modal/ModalUpdate/ModalUpdateLecturer";
 import { useMutation, useSubscription } from "@apollo/client";
 import { AiOutlineDelete } from "react-icons/ai";
 import ModalDelete from "../../Modal/ModalDelete";
-import { GET_LECTURERS_SEARCH } from "../../../api/Model/Subscription/GetSearchLecturers";
 
 function LecturerTable() {
   const search = useSelector((state) => state.search.value);
   const { data: dataLecturers, loading: fetchLecturers } = useSubscription(GET_LECTURERS);
-  const { data: dataLecturerSearch, loading: fetchSearch } = useSubscription(GET_LECTURERS_SEARCH, {
-    variables: {
-      nidn: search,
-    },
-  });
 
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -144,7 +138,7 @@ function LecturerTable() {
             </tr>
           </thead>
           <tbody>
-            {fetchLecturers || fetchSearch ? (
+            {fetchLecturers ? (
               <tr>
                 <td colSpan={6} rowSpan={6}>
                   <LoadingAnimationXL />
@@ -187,21 +181,23 @@ function LecturerTable() {
                   </td>
                 </tr>
               )
-            ) : dataLecturerSearch?.lecturers.length !== 0 ? (
-              dataLecturerSearch?.lecturers.map((lecturer) => (
-                <tr key={lecturer.nidn} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
-                  <td className="w-4 p-4"></td>
-                  <td className="px-6 py-4">{lecturer.nidn}</td>
-                  <td className="px-6 py-4">{lecturer.fullname}</td>
-                  <td className="px-6 py-4">{lecturer.email}</td>
-                  <td className="px-6 py-4">{lecturer.phone_number}</td>
-                  <td className="px-6 py-4">{lecturer.address}</td>
-                  <td className="flex flex-row justify-center gap-x-1 pt-2">
-                    <UpdateLecturerModal data={lecturer} />
-                    <ModalDelete data={lecturer} />
-                  </td>
-                </tr>
-              ))
+            ) : data.filter((d) => d.nidn === search).length !== 0 ? (
+              data
+                .filter((d) => d.nidn === search)
+                .map((lecturer) => (
+                  <tr key={lecturer.nidn} className="dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-primary-white2 dark:hover:bg-gray-700">
+                    <td className="w-4 p-4"></td>
+                    <td className="px-6 py-4">{lecturer.nidn}</td>
+                    <td className="px-6 py-4">{lecturer.fullname}</td>
+                    <td className="px-6 py-4">{lecturer.email}</td>
+                    <td className="px-6 py-4">{lecturer.phone_number}</td>
+                    <td className="px-6 py-4">{lecturer.address}</td>
+                    <td className="flex flex-row justify-center gap-x-1 pt-2">
+                      <UpdateLecturerModal data={lecturer} />
+                      <ModalDelete data={lecturer} />
+                    </td>
+                  </tr>
+                ))
             ) : (
               <tr>
                 <td colSpan={6}>

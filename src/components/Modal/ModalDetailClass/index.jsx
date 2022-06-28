@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { AiOutlineGroup } from "react-icons/ai";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { FaRegWindowClose } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { FILTER_MEET_NUMBER } from "../../../redux/filterSlice";
-import FilterMeetNumber from "../../FilterMeetNumber";
-import AttendanceTable from "../../Tables/AttendanceTable";
+import ClassesTable from "../../Tables/ClassesTable";
+import ModalAddStudentToClass from "../ModalAddStudentToAttendance";
 
 function ModalDetailClass({ data }) {
   const [showModal, setShowModal] = useState(false);
@@ -25,7 +25,7 @@ function ModalDetailClass({ data }) {
         }}
         className="bg-primary-blue text-white hover:bg-secondary-blue p-2 rounded-md"
       >
-        <AiOutlineGroup size={25} />
+        <AiOutlineUsergroupAdd size={25} />
       </button>
       {showModal && (
         <div id="modalAddStudenttoClass" tabIndex="-1" className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
@@ -33,7 +33,7 @@ function ModalDetailClass({ data }) {
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
               <div className="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
                 <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-                  Absensi {assignValue.course_name} - {assignValue.class_name}
+                  Daftar Mahasiswa di Mata Kuliah {assignValue.course_name} - {assignValue.class_name}
                 </h3>
                 <button
                   onClick={() => {
@@ -47,11 +47,11 @@ function ModalDetailClass({ data }) {
                   <FaRegWindowClose id="cancel" className="w-8 dark:text-white text-primary-blue" size={25} />
                 </button>
               </div>
-              <div className="flex px-6 justify-start">
-                <FilterMeetNumber />
+              <div className="flex px-6 pt-6 justify-start">
+                <ModalAddStudentToClass data={data} />
               </div>
               <div className="p-6">
-                <AttendanceTable schedule_data={assignValue} />
+                <ClassesTable schedule_data={assignValue} />
               </div>
             </div>
           </div>

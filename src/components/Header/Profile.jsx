@@ -30,7 +30,7 @@ function Profile() {
     }).then((result) => {
       if (result.isConfirmed) {
         AUTH.setLogout(navigate);
-        window.location.reload();
+        // window.location.reload();
       }
     });
   };
@@ -42,8 +42,8 @@ function Profile() {
             <span className="block text-xs z-50">{u.role.name}</span>
             <span className="block truncate text-sm font-medium z-50">{u.fullname}</span>
           </Dropdown.Header>
-          <Link to="/akun">
-            <Dropdown.Item>Settings</Dropdown.Item>
+          <Link to="/akun" state={u}>
+            <Dropdown.Item>Ubah Password</Dropdown.Item>
           </Link>
           <Dropdown.Divider />
           <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
