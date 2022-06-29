@@ -79,6 +79,9 @@ label #cancel {
 }
 
 @media (min-width: 320px) and (max-width: 1024px) {
+  body {
+    padding: 0px 10px;
+  }
   .main {
     margin-left: 0;
     width: 100%;

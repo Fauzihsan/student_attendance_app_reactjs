@@ -66,7 +66,7 @@ function LoginPage() {
 
   return (
     <div className="mainLogin flex lg:flex-row flex-col gap-x-10 gap-y-5 justify-center items-center">
-      <img src={require("../../assets/img/ftLogo.png")} alt="Logo Fakultas Teknik UNSUR" className="left-0 lg:flex md:flex hidden opacity-50" />
+      <img src={require("../../assets/img/ftLogo.png")} alt="Logo Fakultas Teknik UNSUR" className="left-0 lg:flex hidden opacity-50" />
       <div className="box flex flex-col lg:p-10 p-3 lg:w-1/2 w-5/6 h-max justify-center items-center" data-aos="fade-up" data-aos-anchor-placement="top-bottom" data-aos-duration="1000">
         <img src={require("../../assets/img/ftLogo.png")} alt="Logo Fakultas Teknik UNSUR" className="left-0 lg:hidden flex opacity-50 w-32" />
         <h1 className="title text-center lg:text-3xl text-xl">

@@ -1,6 +1,6 @@
 import { useMutation, useSubscription } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { GET_ATTENDANCES_ALL } from "../../../api/Model/Subscription/GetAttendances";
 import LoadingAnimationXL from "../../Loading/LoadingAnimationXL";
 import {
@@ -20,9 +20,17 @@ import {
   UPDATE_ATTENDANCE_P9,
 } from "../../../api/Model/Mutation/Update/UpdateAttendance";
 import LoadingAnimation from "../../Loading/LoadingAnimation";
+import { MODAL_IS_PRESENT } from "../../../redux/modalSlice";
 
-function AttendanceTable({ schedule_data }) {
-  const meeting = useSelector((state) => state.filter.meet_number);
+function AttendanceTable({ schedule_data, role }) {
+  const dispatch = useDispatch();
+  let meeting = "";
+  const meetFilter = useSelector((state) => state.filter.meet_number);
+  if (role === "lecturer") {
+    meeting = schedule_data.meet_number.toString();
+  } else {
+    meeting = meetFilter;
+  }
   const { data, loading } = useSubscription(GET_ATTENDANCES_ALL, { variables: { schedules_id: schedule_data.id } });
   const [attendances, setAttendances] = useState([]);
   const [attendanceIndex, setAttendanceIndex] = useState("");
@@ -99,7 +107,9 @@ function AttendanceTable({ schedule_data }) {
       },
     });
     setAttendanceIndex(index);
+    dispatch(MODAL_IS_PRESENT(true));
   };
+
   const handleAbsent = (npm, index) => {
     updateAbsent({
       variables: {
@@ -142,12 +152,8 @@ function AttendanceTable({ schedule_data }) {
                 <td className="px-6 py-4 w-full flex justify-center text-white">
                   {meeting === "1" ? (
                     <div>
-                      {attendance.p1 === -1 ? (
+                      {attendance.p1 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p1 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -158,12 +164,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : meeting === "2" ? (
                     <div>
-                      {attendance.p2 === -1 ? (
+                      {attendance.p2 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p2 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -174,12 +176,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : meeting === "3" ? (
                     <div>
-                      {attendance.p3 === -1 ? (
+                      {attendance.p3 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p3 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -190,12 +188,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : meeting === "4" ? (
                     <div>
-                      {attendance.p4 === -1 ? (
+                      {attendance.p4 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p4 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -206,12 +200,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : meeting === "5" ? (
                     <div>
-                      {attendance.p5 === -1 ? (
+                      {attendance.p5 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p5 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -222,12 +212,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : meeting === "6" ? (
                     <div>
-                      {attendance.p6 === -1 ? (
+                      {attendance.p6 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p6 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -238,12 +224,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : meeting === "7" ? (
                     <div>
-                      {attendance.p7 === -1 ? (
+                      {attendance.p7 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p7 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -254,12 +236,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : meeting === "8" ? (
                     <div>
-                      {attendance.p8 === -1 ? (
+                      {attendance.p8 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p8 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -270,12 +248,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : meeting === "9" ? (
                     <div>
-                      {attendance.p9 === -1 ? (
+                      {attendance.p9 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p9 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -286,12 +260,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : meeting === "10" ? (
                     <div>
-                      {attendance.p10 === -1 ? (
+                      {attendance.p10 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p10 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -302,12 +272,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : meeting === "11" ? (
                     <div>
-                      {attendance.p11 === -1 ? (
+                      {attendance.p11 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p11 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -318,12 +284,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : meeting === "12" ? (
                     <div>
-                      {attendance.p12 === -1 ? (
+                      {attendance.p12 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p12 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -334,12 +296,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : meeting === "13" ? (
                     <div>
-                      {attendance.p13 === -1 ? (
+                      {attendance.p13 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p13 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -350,12 +308,8 @@ function AttendanceTable({ schedule_data }) {
                     </div>
                   ) : (
                     <div>
-                      {attendance.p14 === -1 ? (
+                      {attendance.p14 === 0 ? (
                         <button className="bg-secondary-red p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
-                          {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Belum Diabsen"}
-                        </button>
-                      ) : attendance.p14 === 0 ? (
-                        <button className="bg-secondary-yellow p-2 rounded-md" onClick={() => handlePresent(attendance.npm, index)}>
                           {loadingPresent && attendanceIndex === index ? <LoadingAnimation /> : "Tidak Hadir"}
                         </button>
                       ) : (
@@ -371,7 +325,7 @@ function AttendanceTable({ schedule_data }) {
           ) : (
             <tr>
               <td colSpan={4}>
-                <p className="text-center py-3">Data Kosong</p>
+                <p className="text-center py-3">Data Mahasiswa Kosong</p>
               </td>
             </tr>
           )}

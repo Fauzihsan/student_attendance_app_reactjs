@@ -14,8 +14,6 @@ import LihatAbsensi from "./pages/StudentPages/LihatAbsensi";
 import Akun from "./pages/Akun";
 import LecturerRoute from "./routes/LecturerRoute";
 import Absensi from "./pages/LecturerPages/Absensi";
-import HomeStudent from "./pages/StudentPages/Home";
-import HomeLecturer from "./pages/LecturerPages/Home";
 
 export default function App() {
   return (
@@ -34,13 +32,11 @@ export default function App() {
       </Route>
 
       <Route element={<StudentRoute />}>
-        <Route path="/student" element={<HomeStudent />} />
-        <Route path="/student/lihatAbsensi" element={<LihatAbsensi />} />
+        <Route path="/student" element={<LihatAbsensi />} />
       </Route>
 
       <Route element={<LecturerRoute />}>
-        <Route path="/lecturer" element={<HomeLecturer />} />
-        <Route path="/lecturer/absensi" element={<Absensi />} />
+        <Route path="/lecturer" element={<Absensi />} />
       </Route>
 
       <Route path="/akun" element={<Akun />} />

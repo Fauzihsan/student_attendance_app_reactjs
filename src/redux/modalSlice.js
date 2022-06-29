@@ -5,6 +5,7 @@ export const modalSlice = createSlice({
   initialState: {
     add: false,
     import: false,
+    isPresent: false,
   },
   reducers: {
     MODAL_ADD: (state, action) => {
@@ -13,9 +14,12 @@ export const modalSlice = createSlice({
     MODAL_IMPORT: (state, action) => {
       state.import = action.payload;
     },
+    MODAL_IS_PRESENT: (state, action) => {
+      state.isPresent = action.payload;
+    },
   },
 });
 
-export const { MODAL_ADD, MODAL_IMPORT, MODAL_UPDATE, MODAL_DELETE } = modalSlice.actions;
+export const { MODAL_ADD, MODAL_IMPORT, MODAL_IS_PRESENT } = modalSlice.actions;
 
 export default modalSlice.reducer;

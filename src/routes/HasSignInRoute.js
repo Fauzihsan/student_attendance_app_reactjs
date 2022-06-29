@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router";
 import Dashboard from "../pages/AdminPages/Dashboard";
-import HomeLecturer from "../pages/LecturerPages/Home";
-import HomeStudent from "../pages/StudentPages/Home";
+import Absensi from "../pages/LecturerPages/Absensi";
+import LihatAbsensi from "../pages/StudentPages/LihatAbsensi";
 import { AUTH } from "../utils/helpers/AuthCookies";
 
 function HasSignInRoute() {
@@ -12,9 +12,9 @@ function HasSignInRoute() {
     if (AUTH.getRole() === "1" || AUTH.getRole() === "2" || AUTH.getRole() === "3") {
       return <Dashboard />;
     } else if (AUTH.getRole() === "4") {
-      return <HomeStudent />;
+      return <LihatAbsensi />;
     } else {
-      return <HomeLecturer />;
+      return <Absensi />;
     }
   }
 }
