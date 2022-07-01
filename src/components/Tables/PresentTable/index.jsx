@@ -62,8 +62,8 @@ function PresentTable({ schedule_data, npm }) {
 
   return (
     <>
-      <div className="relative w-full overflow-scroll shadow-md sm:rounded-lg">
-        <table className="w-max text-sm text-center text-gray-500 dark:text-gray-400">
+      <div className="relative w-full overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="w-full text-sm text-center text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <HeaderTable />
           </thead>
