@@ -5,7 +5,7 @@ import { FaRegWindowClose } from "react-icons/fa";
 import FilterMeetNumber from "../FilterMeetNumber";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { GET_ATTENDANCES_ALL } from "../../api/Model/Subscription/GetAttendances";
+import { GET_ATTENDANCES } from "../../api/Model/Subscription/GetAttendances";
 import { useSubscription } from "@apollo/client";
 import * as XLSX from "xlsx";
 import { FILTER_MEET_NUMBER } from "../../redux/filterSlice";
@@ -18,7 +18,7 @@ function ExportAttendance({ data }) {
 
   const [allData, setAllData] = useState([]);
   const [dataMeet, setDataMeet] = useState([]);
-  const { data: dataAllAttendance } = useSubscription(GET_ATTENDANCES_ALL, { variables: { schedules_id: data.id } });
+  const { data: dataAllAttendance } = useSubscription(GET_ATTENDANCES, { variables: { schedules_id: data.id } });
 
   useEffect(() => {
     setDataMeet([]);

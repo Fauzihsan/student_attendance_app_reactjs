@@ -1,12 +1,12 @@
 import { useMutation, useSubscription } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { GET_ATTENDANCES_ALL } from "../../../api/Model/Subscription/GetAttendances";
+import { GET_ATTENDANCES } from "../../../api/Model/Subscription/GetAttendances";
 import LoadingAnimationXL from "../../Loading/LoadingAnimationXL";
 import { AiOutlineClose } from "react-icons/ai";
 import { DELETE_STUDENT_FROM_CLASS } from "../../../api/Model/Mutation/Delete/DeleteStudentFromClass";
 
 function ClassesTable({ schedule_data }) {
-  const { data, loading } = useSubscription(GET_ATTENDANCES_ALL, { variables: { schedules_id: schedule_data.id } });
+  const { data, loading } = useSubscription(GET_ATTENDANCES, { variables: { schedules_id: schedule_data.id } });
   const [attendances, setAttendances] = useState([]);
   const [deleteStudent] = useMutation(DELETE_STUDENT_FROM_CLASS);
 

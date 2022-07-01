@@ -1,7 +1,7 @@
 import { useMutation, useSubscription } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_ATTENDANCES_ALL } from "../../../api/Model/Subscription/GetAttendances";
+import { GET_ATTENDANCES } from "../../../api/Model/Subscription/GetAttendances";
 import LoadingAnimationXL from "../../Loading/LoadingAnimationXL";
 import {
   UPDATE_ATTENDANCE_P1,
@@ -31,7 +31,7 @@ function AttendanceTable({ schedule_data, role }) {
   } else {
     meeting = meetFilter;
   }
-  const { data, loading } = useSubscription(GET_ATTENDANCES_ALL, { variables: { schedules_id: schedule_data.id } });
+  const { data, loading } = useSubscription(GET_ATTENDANCES, { variables: { schedules_id: schedule_data.id } });
   const [attendances, setAttendances] = useState([]);
   const [attendanceIndex, setAttendanceIndex] = useState("");
 

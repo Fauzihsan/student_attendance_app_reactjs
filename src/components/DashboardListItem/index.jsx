@@ -20,37 +20,37 @@ function DashboardListItem() {
       <div className="shadow-2xl h-max relative rounded-3xl dark:bg-primary-black bg-primary-white lg:w-1/3 w-1/2 p-5">
         <div className="justify-center flex flex-col gap-y-5">
           <div className="flex flex-row justify-center items-end ">
-            <p className="dark:text-white text-primary-grey text-center lg:text-3xl text-2xl">{loadingStudent ? <LoadingAnimation /> : countStudentActive + " "}</p>
-            <p className="dark:text-white text-primary-grey opacity-50 text-center text-sm ">Mahasiswa</p>
+            <div className="dark:text-white text-primary-grey text-center lg:text-3xl text-2xl">{loadingStudent ? <LoadingAnimation /> : countStudentActive + " "}</div>
+            <div className="dark:text-white text-primary-grey opacity-50 text-center text-sm ">Mahasiswa</div>
           </div>
-          <p className="dark:text-white text-primary-grey text-center lg:text-sm text-xs">Mahasiswa Aktif</p>
+          <div className="dark:text-white text-primary-grey text-center lg:text-sm text-xs">Mahasiswa Aktif</div>
         </div>
       </div>
       <div className="shadow-2xl h-max relative rounded-3xl dark:bg-primary-black bg-primary-white lg:w-1/3 w-1/2 p-5">
         <div className="justify-center flex flex-col gap-y-5">
           <div className="flex flex-row justify-center items-end ">
-            <p className="dark:text-white text-primary-grey text-center lg:text-3xl text-2xl">{loadingStudent ? <LoadingAnimation /> : countStudentNonActive + " "}</p>
-            <p className="dark:text-white text-primary-grey opacity-50 text-center text-sm ">Mahasiswa</p>
+            <div className="dark:text-white text-primary-grey text-center lg:text-3xl text-2xl">{loadingStudent ? <LoadingAnimation /> : countStudentNonActive + " "}</div>
+            <div className="dark:text-white text-primary-grey opacity-50 text-center text-sm ">Mahasiswa</div>
           </div>
-          <p className="dark:text-white text-primary-grey text-center lg:text-sm text-xs">Mahasiswa Tidak Aktif</p>
+          <div className="dark:text-white text-primary-grey text-center lg:text-sm text-xs">Mahasiswa Tidak Aktif</div>
         </div>
       </div>
       <div className="shadow-2xl h-max relative rounded-3xl dark:bg-primary-black bg-primary-white lg:w-1/3 w-1/2 p-5">
         <div className="justify-center flex flex-col gap-y-5">
           <div className="flex flex-row justify-center items-end ">
-            <p className="dark:text-white text-primary-grey text-center lg:text-3xl text-2xl">{loadingStudent ? <LoadingAnimation /> : countAllStudent + " "}</p>
-            <p className="dark:text-white text-primary-grey opacity-50 text-center text-sm ">Mahasiswa</p>
+            <div className="dark:text-white text-primary-grey text-center lg:text-3xl text-2xl">{loadingStudent ? <LoadingAnimation /> : countAllStudent + " "}</div>
+            <div className="dark:text-white text-primary-grey opacity-50 text-center text-sm ">Mahasiswa</div>
           </div>
-          <p className="dark:text-white text-primary-grey text-center lg:text-sm text-xs">Total Mahasiswa</p>
+          <div className="dark:text-white text-primary-grey text-center lg:text-sm text-xs">Total Mahasiswa</div>
         </div>
       </div>
       <div className="shadow-2xl h-max relative rounded-3xl dark:bg-primary-black bg-primary-white lg:w-1/3 w-1/2 p-5">
         <div className="justify-center flex flex-col gap-y-5">
           <div className="flex flex-row justify-center items-end ">
-            <p className="dark:text-white text-primary-grey text-center lg:text-3xl text-2xl">{loadingLecturer ? <LoadingAnimation /> : countLecturer + " "}</p>
-            <p className="dark:text-white text-primary-grey opacity-50 text-center text-sm  ">Dosen</p>
+            <div className="dark:text-white text-primary-grey text-center lg:text-3xl text-2xl">{loadingLecturer ? <LoadingAnimation /> : countLecturer + " "}</div>
+            <div className="dark:text-white text-primary-grey opacity-50 text-center text-sm  ">Dosen</div>
           </div>
-          <p className="dark:text-white text-primary-grey text-center lg:text-sm text-xs">Total Dosen</p>
+          <div className="dark:text-white text-primary-grey text-center lg:text-sm text-xs">Total Dosen</div>
         </div>
       </div>
     </div>
