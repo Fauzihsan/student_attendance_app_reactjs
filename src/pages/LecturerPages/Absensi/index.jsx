@@ -41,7 +41,7 @@ function Absensi() {
           <div className="flex lg:flex-row md:flex-row flex-col gap-x-10 gap-y-5 flex-wrap justify-center items-center py-3">
             {loadingGetUser || loadingGetSchedule ? (
               <LoadingAnimationXL />
-            ) : (
+            ) : data?.schedules.length !== 0 ? (
               data?.schedules.map((d) => (
                 <div key={d.id} className="p-6 lg:w-1/3 md:w-1/3 w-3/4 h-60 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                   <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -50,10 +50,12 @@ function Absensi() {
                   <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">
                     {d.room} , {d.day} / {d.time}
                   </p>
-                  <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">Jumlah Pertemuan : {d.meet_number}</p>
+                  {d.meet_number !== 14 ? <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">Jumlah Pertemuan : {d.meet_number}</p> : <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">PERTEMUAN HABIS</p>}
                   <ModalAttendance data={d} role={"lecturer"} />
                 </div>
               ))
+            ) : (
+              <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Tidak ada mata kuliah yang di ampu</h5>
             )}
           </div>
         </div>

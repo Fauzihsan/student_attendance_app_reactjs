@@ -73,13 +73,19 @@ function PresentTable({ schedule_data, npm }) {
         </table>
       </div>
       <div className="w-full p-5">
-        <div className="justify-center flex flex-col gap-y-5 text-primary-grey dark:text-white">
-          <div className="flex flex-row justify-center items-end">
-            <p className=" text-center lg:text-6xl text-4xl font-bold">{((persentase / schedule_data.meet_number) * 100).toFixed(1)}</p>
-            <p className=" text-center text-lg ">%</p>
+        {schedule_data.meet_number !== 0 ? (
+          <div className="justify-center flex flex-col gap-y-5 text-primary-grey dark:text-white">
+            <div className="flex flex-row justify-center items-end">
+              <p className=" text-center lg:text-6xl text-4xl font-bold">{((persentase / schedule_data.meet_number) * 100).toFixed(1)}</p>
+              <p className=" text-center text-lg ">%</p>
+            </div>
+            <p className=" text-center lg:text-2xl text-lg">Dari {schedule_data.meet_number} Pertemuan</p>
           </div>
-          <p className=" text-center lg:text-2xl text-lg">Dari {schedule_data.meet_number} Pertemuan</p>
-        </div>
+        ) : (
+          <div className="justify-center flex flex-col gap-y-5 text-primary-grey dark:text-white">
+            <p className=" text-center lg:text-2xl text-lg">Belum ada pertemuan</p>
+          </div>
+        )}
       </div>
     </>
   );

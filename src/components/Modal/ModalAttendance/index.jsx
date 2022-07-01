@@ -34,19 +34,28 @@ function ModalAttendance({ data, role }) {
   return (
     <>
       {role === "lecturer" ? (
-        <button
-          onClick={() => {
-            setAssignValue({ ...assignValue, id: data.id, class_name: data.class.class_name, course_name: data.course.course_name, meet_number: data.meet_number + 1 });
-            setShowModal(true);
-            updateMeetNumber();
-          }}
-          className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-primary-blue rounded-lg hover:bg-secondary-blue focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary-blue dark:hover:bg-secondary-blue dark:focus:ring-blue-800"
-        >
-          Absen
-          <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
-          </svg>
-        </button>
+        data.meet_number !== 14 ? (
+          <button
+            onClick={() => {
+              setAssignValue({ ...assignValue, id: data.id, class_name: data.class.class_name, course_name: data.course.course_name, meet_number: data.meet_number + 1 });
+              setShowModal(true);
+              data.meet_number !== 14 && updateMeetNumber();
+            }}
+            className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-primary-blue rounded-lg hover:bg-secondary-blue focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary-blue dark:hover:bg-secondary-blue dark:focus:ring-blue-800"
+          >
+            Absen
+            <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+            </svg>
+          </button>
+        ) : (
+          <button className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-primary-blue rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary-blue dark:focus:ring-blue-800">
+            Pertemuan Habis
+            <svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
+            </svg>
+          </button>
+        )
       ) : (
         <button
           onClick={() => {
@@ -91,10 +100,16 @@ function ModalAttendance({ data, role }) {
                   </button>
                 )}
               </div>
-              <div className="flex px-6 py-2 justify-start">{role === "lecturer" ? <HeaderAttendance schedule_data={data} /> : <FilterMeetNumber />}</div>
-              <div className="p-6">
-                <AttendanceTable role={role} schedule_data={assignValue} />
-              </div>
+              {data.meet_number !== 15 ? (
+                <>
+                  <div className="flex px-6 py-2 justify-start">{role === "lecturer" ? <HeaderAttendance schedule_data={data} /> : <FilterMeetNumber />}</div>
+                  <div className="p-6">
+                    <AttendanceTable role={role} schedule_data={assignValue} />
+                  </div>
+                </>
+              ) : (
+                <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">PERTEMUAN HABIS</p>
+              )}
             </div>
           </div>
         </div>
