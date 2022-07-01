@@ -22,10 +22,6 @@ function ModalAttendance({ data, role }) {
       meet_number: parseInt(data.meet_number) + 1,
       id: data.id,
     },
-    onCompleted: () => {
-      setShowModal(false);
-      setConfirmCloseAttendance(false);
-    },
   });
 
   const INITIAL_VALUE = {
@@ -40,8 +36,9 @@ function ModalAttendance({ data, role }) {
       {role === "lecturer" ? (
         <button
           onClick={() => {
-            setAssignValue({ ...assignValue, id: data.id, class_name: data.class.class_name, course_name: data.course.course_name, meet_number: data.meet_number });
+            setAssignValue({ ...assignValue, id: data.id, class_name: data.class.class_name, course_name: data.course.course_name, meet_number: data.meet_number + 1 });
             setShowModal(true);
+            updateMeetNumber();
           }}
           className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-primary-blue rounded-lg hover:bg-secondary-blue focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary-blue dark:hover:bg-secondary-blue dark:focus:ring-blue-800"
         >
@@ -124,8 +121,9 @@ function ModalAttendance({ data, role }) {
                   type="button"
                   className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
                   onClick={() => {
-                    updateMeetNumber();
                     dispatch(MODAL_IS_PRESENT(false));
+                    setConfirmCloseAttendance(false);
+                    setShowModal(false);
                   }}
                 >
                   {loadingMeetNumber ? <LoadingAnimation /> : "Selesai"}

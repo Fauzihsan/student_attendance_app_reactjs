@@ -4,7 +4,7 @@ export const filterSlice = createSlice({
   name: "filter",
   initialState: {
     status: "all",
-    meet_number: "1",
+    meet_number: "0",
   },
   reducers: {
     FILTER_CATEGORY: (state, action) => {

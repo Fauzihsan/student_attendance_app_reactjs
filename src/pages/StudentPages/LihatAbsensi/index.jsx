@@ -2,11 +2,11 @@ import { useQuery, useSubscription } from "@apollo/client";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { GET_ONE_USER } from "../../../api/Model/Query/GetOneUser";
-import { GET_SCHEDULE_BY_LECTURER } from "../../../api/Model/Subscription/GetScheduleByLecturer";
 import Header from "../../../components/Header";
 import { AUTH } from "../../../utils/helpers/AuthCookies";
 import LoadingAnimationXL from "../../../components/Loading/LoadingAnimationXL";
-import ModalAttendance from "../../../components/Modal/ModalAttendance";
+import { GET_SCHEDULE_BY_STUDENT } from "../../../api/Model/Subscription/GetScheduleByStudent";
+import ModalSeeAttendance from "../../../components/Modal/ModalSeeAttendance";
 
 function LihatAbsensi() {
   const [npm, setNpm] = useState("");
@@ -16,7 +16,7 @@ function LihatAbsensi() {
     },
   });
 
-  const { data, loading: loadingGetSchedule } = useSubscription(GET_SCHEDULE_BY_LECTURER, {
+  const { data, loading: loadingGetSchedule } = useSubscription(GET_SCHEDULE_BY_STUDENT, {
     variables: {
       npm,
     },
@@ -45,13 +45,16 @@ function LihatAbsensi() {
               data?.schedules.map((d) => (
                 <div key={d.id} className="p-6 lg:w-1/3 md:w-1/3 w-3/4 h-60 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                   <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {d.class.class_name} <br /> {d.course.course_name}
+                    {d.class.class_name} - {d.course.course_name}
                   </h5>
+                  <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">
+                    {d.lecturer.nidn} - {d.lecturer.fullname}
+                  </p>
                   <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">
                     {d.room} , {d.day} / {d.time}
                   </p>
-                  <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">Jumlah Pertemuan : {d.meet_number}</p>
-                  <ModalAttendance data={d} role={"lecturer"} />
+                  <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">Pertemuan : Ke-{d.meet_number}</p>
+                  <ModalSeeAttendance data={d} npm={npm} role={"student"} />
                 </div>
               ))
             )}
