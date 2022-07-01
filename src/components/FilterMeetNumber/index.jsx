@@ -1,10 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { FILTER_MEET_NUMBER } from "../../redux/filterSlice";
 
 function FilterMeetNumber() {
   const dispatch = useDispatch();
-  const meet = useSelector((state) => state.filter.meet_number);
 
   return (
     <div className="w-full px-3 py-2 flex flex-row items-center gap-x-2">

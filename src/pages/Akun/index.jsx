@@ -38,10 +38,10 @@ function Akun() {
   });
 
   useEffect(() => {
-    if (newPassword === "") {
+    if (password === "" && newPassword === "" && confirmPassword === "") {
       setTogglePasswordIcon(false);
     }
-  }, [newPassword]);
+  }, [password, newPassword, confirmPassword]);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
