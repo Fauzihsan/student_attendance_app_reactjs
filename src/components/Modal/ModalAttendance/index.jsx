@@ -39,7 +39,6 @@ function ModalAttendance({ data, role }) {
             onClick={() => {
               setAssignValue({ ...assignValue, id: data.id, class_name: data.class.class_name, course_name: data.course.course_name, meet_number: data.meet_number + 1 });
               setShowModal(true);
-              data.meet_number !== 14 && updateMeetNumber();
             }}
             className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-primary-blue rounded-lg hover:bg-secondary-blue focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary-blue dark:hover:bg-secondary-blue dark:focus:ring-blue-800"
           >
@@ -102,7 +101,7 @@ function ModalAttendance({ data, role }) {
               </div>
               {data.meet_number !== 15 ? (
                 <>
-                  <div className="flex px-6 py-2 justify-start">{role === "lecturer" ? <HeaderAttendance schedule_data={data} /> : <FilterMeetNumber />}</div>
+                  <div className="flex px-6 py-2 justify-start">{role === "lecturer" ? <HeaderAttendance meet={assignValue.meet_number} schedule_data={data} /> : <FilterMeetNumber />}</div>
                   <div className="p-6">
                     <AttendanceTable role={role} schedule_data={assignValue} />
                   </div>
@@ -129,7 +128,7 @@ function ModalAttendance({ data, role }) {
                 </svg>
 
                 <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                  Anda yakin ingin menyelesaikan Absensi pertemuan {data.meet_number} ?
+                  Anda yakin ingin menyelesaikan Absensi pertemuan {data.meet_number + 1} ?
                   <br />
                 </h3>
                 <button
@@ -139,6 +138,7 @@ function ModalAttendance({ data, role }) {
                     dispatch(MODAL_IS_PRESENT(false));
                     setConfirmCloseAttendance(false);
                     setShowModal(false);
+                    data.meet_number !== 14 && updateMeetNumber();
                   }}
                 >
                   {loadingMeetNumber ? <LoadingAnimation /> : "Selesai"}

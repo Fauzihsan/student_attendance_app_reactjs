@@ -1,6 +1,6 @@
 import React from "react";
 
-function HeaderAttendance({ schedule_data }) {
+function HeaderAttendance({ schedule_data, meet }) {
   return (
     <div className="block p-6 text-xs w-full bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
       <table className="lg:w-3/4 md:w-3/4 w-full">
@@ -44,7 +44,7 @@ function HeaderAttendance({ schedule_data }) {
             </td>
             <td>:</td>
             <td>
-              <p className="text-gray-700 dark:text-gray-400">{schedule_data.meet_number}</p>
+              <p className="text-gray-700 dark:text-gray-400">{meet}</p>
             </td>
             <td className="w-1/6 py-2">
               <p className="text-gray-700 dark:text-gray-400">Ruangan</p>
