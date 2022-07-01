@@ -116,6 +116,8 @@ function GraphicAttendance() {
 
   useEffect(() => {
     setData({ label: labels, absent: absent, present: present });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [absent, present, labels]);
 
   const options = {
