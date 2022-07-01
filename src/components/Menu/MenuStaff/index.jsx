@@ -3,6 +3,7 @@ import "../../../pages/AdminPages/style.css";
 import { Link } from "react-router-dom";
 import { RiDashboard3Line, RiUser3Line, RiListSettingsLine } from "react-icons/ri";
 import { GiTeacher } from "react-icons/gi";
+import { HiOutlineDocumentDownload } from "react-icons/hi";
 import { AiOutlineSchedule, AiOutlineBook } from "react-icons/ai";
 
 function MenuStaff() {
@@ -47,6 +48,13 @@ function MenuStaff() {
         <div className="side-menu flex flex-row items-center">
           <AiOutlineSchedule size={20} className="mr-4" />
           Penjadwalan & Absensi
+        </div>
+      </Link>
+
+      <Link to="/admin/unduh" className="hover:bg-primary-blue hover:text-primary-white p-3 dark:text-white text-primary-grey hover:no-underline">
+        <div className="side-menu flex flex-row items-center">
+          <HiOutlineDocumentDownload size={20} className="mr-4" />
+          Unduh Absensi
         </div>
       </Link>
     </>

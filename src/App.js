@@ -14,6 +14,7 @@ import LihatAbsensi from "./pages/StudentPages/LihatAbsensi";
 import Akun from "./pages/Akun";
 import LecturerRoute from "./routes/LecturerRoute";
 import Absensi from "./pages/LecturerPages/Absensi";
+import UnduhAbsensi from "./pages/AdminPages/UnduhAbsensi";
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/admin/kelolaKelas" element={<KelolaKelas />} />
         <Route path="/admin/kelolaMatkul" element={<KelolaMatkul />} />
         <Route path="/admin/penjadwalan" element={<Penjadwalan />} />
+        <Route path="/admin/unduh" element={<UnduhAbsensi />} />
       </Route>
 
       <Route element={<StudentRoute />}>

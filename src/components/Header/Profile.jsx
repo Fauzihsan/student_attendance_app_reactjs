@@ -30,7 +30,7 @@ function Profile() {
     }).then((result) => {
       if (result.isConfirmed) {
         AUTH.setLogout(navigate);
-        // window.location.reload();
+        window.location.reload();
       }
     });
   };
