@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# College Student Attendance Information System with React JS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+- Implemented an information system for digitization college student attendance with ReactJS, Tailwind CSS, and GraphQL
+- Managed 100% college student & lecturer data, classes data, schedule & attendance data
+- Provides an excellent feature on this project where 100% attendance data is visualized with graphs in real time
 
-In the project directory, you can run:
+Tech Stack & Tools : **ReactJS, TailwindCSS, Hasura, GraphQL, ChartJS, Redux**, etc.
 
-### `npm start`
+This project is available in 2 themes, **dark and light**. Like in the video below
+![themes](https://drive.google.com/uc?export=view&id=1Af1BryOBYMYYrDGo37bKt1HB9VWTZb7y)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Its Excellent Feature is the visualization of attendance data in real time for monitoring, as in the video below :**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![excellent feature](https://drive.google.com/uc?export=view&id=1Cphhw5Mar6SI_cT6GojP3Ivmi8MJBT9Q)
 
-### `npm test`
+**Login Page**
+![login page](https://drive.google.com/uc?export=view&id=1XCCPvpvdpyf6Ak4tUCCvmdTiZhQwNWOx)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Output for Student Page
 
-### `npm run build`
+**Student Page**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![student home page](https://drive.google.com/uc?export=view&id=1OC8a0reTO0IFmuK9JpkK3d238JzQA_yO)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Attendance Modal in Student**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![attendance student](https://drive.google.com/uc?export=view&id=1ykwp9OCyuRTyp88S6-UOmcBURFsmQk63)
 
-### `npm run eject`
+### Output for Lecturer Page
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Lecturer Page**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![lecturer home page](https://drive.google.com/uc?export=view&id=18h64Kx5KakZ95mE9STkO4bmX6aSDg9gw)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Attendance Modal in Lecturer**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![attendance student](https://drive.google.com/uc?export=view&id=1pkBtM6whG_bAQh5ius4tM9BMZYbcWNtv)
 
-## Learn More
+### Output for Staff Page
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Staff Dasboard Page**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Staff Dashboard Page](https://drive.google.com/uc?export=view&id=1SET4M9QJhLbu_kFlpWA4AfCJQZePw-Du)
+![Staff Dashboard Page(2)](https://drive.google.com/uc?export=view&id=1R-OntZrP5lA7wT47XAFQP9Kdpyt9xPER)
 
-### Code Splitting
+**Managed Data Pages**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![managed student data](https://drive.google.com/uc?export=view&id=1z4zjZvhsPuhVYg72yQVVcj19Qk_bKyW6)
+![managed lecturer data](https://drive.google.com/uc?export=view&id=1dVJNky6OHfO5jVctT39cFjcHtlbc474A)
+![managed class data](https://drive.google.com/uc?export=view&id=1b-GW5ZYx1FH9Ckv5zbxiwO27PyZDc4Vq)
+![managed course data](https://drive.google.com/uc?export=view&id=1g-_tLocHZSbODzH3yLw6F5STrE-QxZPz)
+![managed schedule & attendance data](https://drive.google.com/uc?export=view&id=1QiL3Sfkffb-MWdRMKueV3_K3lgaZ9EGZ)
+![add student data to class](https://drive.google.com/uc?export=view&id=1RsduOdEhG2I5VTvj4Q2i5IRzH0VIvvpx)
+![print attendance](https://drive.google.com/uc?export=view&id=1gN1vkgU0wcgoWLNNxTK5Ys-56FI5QXuG)
+![choose print attendance](https://drive.google.com/uc?export=view&id=12z6V2xKNoZq3qSi4AY6bMxKDmnYnxeNo)
 
-### Analyzing the Bundle Size
+**Change Password for all users**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Change Passsowrd](https://drive.google.com/uc?export=view&id=1_BLqM6S-eJn8hI6lBvF7Ac3j5ABtnhmU)

@@ -1,0 +1,53 @@
+.mainLogin {
+  background-color: #ffffff;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+}
+
+.box {
+  border-radius: 50px;
+  background: #ffffff;
+  box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+}
+
+.title {
+  color: #24507b;
+  /* text-shadow: 5px 5px 4px #1b262c; */
+}
+
+form {
+  color: #24507b;
+}
+
+.inputField {
+  border-bottom: 2px solid #023769;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #3282b8;
+  transition: 1s ease all;
+}
+
+.btn-login {
+  font-weight: 700;
+  background: #24507b;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25), -4px -4px 4px #285887;
+  border-radius: 15px;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .mainLogin {
+    height: 100vh;
+    padding: 0px 10px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .mainLogin {
+    height: 100vh;
+  }
+}
