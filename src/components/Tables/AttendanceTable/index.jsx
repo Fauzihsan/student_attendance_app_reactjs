@@ -104,6 +104,7 @@ function AttendanceTable({ schedule_data, role }) {
       variables: {
         status: 1,
         npm,
+        schedules_id: schedule_data.id,
       },
     });
     setAttendanceIndex(index);
@@ -115,6 +116,7 @@ function AttendanceTable({ schedule_data, role }) {
       variables: {
         status: 0,
         npm,
+        schedules_id: schedule_data.id,
       },
     });
     setAttendanceIndex(index);
