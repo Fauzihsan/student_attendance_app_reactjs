@@ -6,7 +6,7 @@ import Profile from "./Profile";
 function Header() {
   return (
     <>
-      <div className="flex flex-row absolute justify-end items-center gap-x-3 w-full p-3 z-50">
+      <div className="flex flex-row absolute justify-end items-center gap-x-3 w-full p-3 z-10">
         <DateTime />
         <Theme />
         <Profile />
