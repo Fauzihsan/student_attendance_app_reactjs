@@ -28,6 +28,7 @@ function ClassesTable({ schedule_data }) {
     deleteStudent({
       variables: {
         npm,
+        schedules_id: parseInt(schedule_data.id),
       },
     });
   };

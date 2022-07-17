@@ -120,10 +120,10 @@ function LoginPage() {
             </div>
             <div className="text-center p-3">
               <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-primary-blue rounded-lg group bg-gradient-to-br from-blue-500 to-primary-blue group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">{loading ? <LoadingAnimation /> : "Sign In"}</span>
+                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">{loading ? <LoadingAnimation /> : "Masuk"}</span>
               </button>
             </div>
-            {failed && <h2 className="text-center text-red-300 font-bold">Username or Password is Wrong!</h2>}
+            {failed && <h2 className="text-center text-red-300 font-bold">Username atau Password salah!</h2>}
           </form>
         </div>
       </div>
