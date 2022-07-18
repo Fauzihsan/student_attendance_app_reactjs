@@ -114,16 +114,24 @@ function StudentTable({ schedule_data, type }) {
     });
   };
 
+  const [selectedStudents, setSelectedStudents] = useState([]);
+
+  useEffect(() => {
+    setSelectedStudents([]);
+    listStudents
+      .filter((ls) => ls.is_checked === true)
+      .forEach((d) => {
+        setSelectedStudents((selectedStudents) => [...selectedStudents, { schedules_id: schedule_data.id, npm: d.npm }]);
+      });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listStudents]);
+
   const handleInsertStudentToAttendance = () => {
-    listStudents.forEach((student) => {
-      if (student.is_checked) {
-        insertStudentToAttendance({
-          variables: {
-            schedules_id: schedule_data.id,
-            npm: student.npm,
-          },
-        });
-      }
+    insertStudentToAttendance({
+      variables: {
+        students: selectedStudents,
+      },
     });
   };
 
