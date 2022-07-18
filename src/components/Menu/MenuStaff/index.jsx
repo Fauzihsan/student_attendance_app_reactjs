@@ -33,7 +33,7 @@ function MenuStaff() {
       <Link to="/admin/kelolaKelas" className="hover:bg-primary-blue hover:text-primary-white p-3 dark:text-white text-primary-grey hover:no-underline">
         <div className="side-menu flex flex-row items-center">
           <RiListSettingsLine size={20} className="mr-4" />
-          Kelas
+          Kelola Kelas
         </div>
       </Link>
 
